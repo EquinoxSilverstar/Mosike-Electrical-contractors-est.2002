@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+    <title>Pricing | Mosike Electrical Contractors</title>
+</head>
+<body>
+    
+    <h1>Pricing</h1>
+     <header class="header">
+   <a href="index.html" class="logo"><img src="_images/logo.jpg " width="100" height="100" alt="Logo" class="logo"></a>
+
+  <nav class="navbar">
+    <div class="exit-btn" id="exit-btn">&times;</div>
+    <a href="#home">home</a>
+    <a href="about.html">about</a>
+    
+ <div class="dropdown">
+  <a href="#services">services</a>
+  <div class="dropdown-content">
+    <a href="buildingConstruction.html">Building Construction</a>
+    <a href="#services">House Renovation</a>
+    <a href="#services">Architecture Design</a>
+    <a href="#services">Material Supply</a>
+    <a href="#services">Construction Consultant</a>
+  </div>
+</div>
+<script>
+  // Toggle mobile menu visibility
+  document.getElementById('menu-btn').onclick = function () {
+    document.querySelector('.navbar').classList.add('active');
+  };
+
+  document.querySelector('.exit-btn').onclick = function () {
+    document.querySelector('.navbar').classList.remove('active');
+  };
+
+  // Toggle dropdown
+  document.querySelectorAll('.navbar .dropdown > a').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault(); // prevent navigation
+      const dropdown = this.parentElement;
+      dropdown.classList.toggle('active');
+    });
+  });
+</script>
+
+
+
+    <div class="dropdown">
+      <a href="projects.html">projects</a>
+      <div class="dropdown-content">
+        <a href="residential.html">Residential</a>
+        <a href="commercial.html">Commercial</a>
+        <a href="#projects">Industrial</a>
+        <a href="#projects">Infrastructure</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="#pricing">pricing</a>
+      <div class="dropdown-content">
+        <a href="#pricing">Basic Plan</a>
+        <a href="#pricing">Premium Plan</a>
+        <a href="#pricing">Ultimate Plan</a>
+      </div>
+    </div>
+
+    <a href="#contact">contact</a>
+    <a href="#blogs">blogs</a>
+  </nav>
+
+  <div class="icons">
+    <div id="menu-btn" class="fas fa-bars"></div>
+    <div id="info-btn" class="fas fa-info-circle" title="Click to See Contact Info"></div>
+    <div id="search-btn" class="fas fa-search" title="Click to See Search Box"></div>
+    <div id="login-btn" class="fas fa-user" title="Click to See Login Form"></div>
+   
+  </div>
+
+      <form action="" class="search-form">
+         <input type="search" name="" placeholder="search here..." id="search-box">
+         <label for="search-box" class="fas fa-search"></label>
+      </form>
+
+      <form action="" class="login-form">
+         <h3>login form</h3>
+         <input type="email" placeholder="enter your email" class="box">
+         <input type="password" placeholder="enter your password" class="box">
+         <div class="flex">
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me">remember me</label>
+            <a href="#">forgot password?</a>
+         </div>
+         <input type="submit" value="login now" class="btn">
+         <p>don't have an account <a href="#">create one!</a></p>
+      </form>
+
+   </header>
+
+   <div class="contact-info">
+
+      <div id="close-contact-info" class="fas fa-times"></div>
+
+      <div class="info">
+         <i class="fas fa-phone"></i>
+         <h3>phone number</h3>
+         <p>+123-456-7890</p>
+         <p>+111-222-3333</p>
+      </div>
+
+      <div class="info">
+         <i class="fas fa-envelope"></i>
+         <h3>email address</h3>
+         <p>shaikhanas@gmail.com</p>
+         <p>anasbhai@gmail.com</p>
+      </div>
+
+      <div class="info">
+         <i class="fas fa-map-marker-alt"></i>
+         <h3>office address</h3>
+         <p> - 400104</p>
+      </div>
+
+      <div class="share">
+         <a href="#" class="fab fa-facebook-f"></a>
+         <a href="#" class="fab fa-twitter"></a>
+         <a href="#" class="fab fa-instagram"></a>
+         <a href="#" class="fab fa-linkedin"></a>
+      </div>
+
+   </div>
+
+   <!-- header section ends -->
+     <section class="footer">
+
+      <div class="links">
+         <a class="btn" href="#home">home</a>
+         <a class="btn" href="#about">about</a>
+         <a class="btn" href="#services">services</a>
+         <a class="btn" href="#projects">projects</a>
+         <a class="btn" href="#pricing">pricing</a>
+         <a class="btn" href="#contact">contact</a>
+         <a class="btn" href="#blogs">blogs</a>
+      </div>
+
+   </section>
+
+   <!-- footer section ends -->
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+
+   <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+
+   <script src="script.js"></script>
+      <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const exitBtn = document.getElementById('exit-btn');
+        const navbar = document.querySelector('.navbar');
+
+        // Show menu
+        menuBtn.addEventListener('click', () => {
+            navbar.classList.add('active');
+        });
+
+        // Hide menu
+        exitBtn.addEventListener('click', () => {
+            navbar.classList.remove('active');
+        });
+
+        // Dropdown click toggling
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent link jump
+                const dropdown = this.parentElement;
+
+                // Close other open dropdowns
+                document.querySelectorAll('.dropdown').forEach(d => {
+                    if (d !== dropdown) d.classList.remove('active');
+                });
+
+                // Toggle current one
+                dropdown.classList.toggle('active');
+            });
+        });
+
+        // Auto close dropdown if clicked outside
+        document.addEventListener('click', function(e) {
+            const isDropdown = e.target.closest('.dropdown');
+            if (!isDropdown) {
+                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+            }
+        });
+    </script>
+
+    
+</body>
+</html>

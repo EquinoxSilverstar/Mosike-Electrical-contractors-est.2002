@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Mosike Electrical Contractors</title>
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+
+   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+</head>
+
+  <header class="header">
+
+      <a href="#" class="logo">We<span>Build</span></a>
+
+  <nav class="navbar">
+    <div class="exit-btn" id="exit-btn">&times;</div>
+    <a href="index.html">home</a>
+    <a href="about.html">about</a>
+    
+    <div class="dropdown">
+      <a href="#services">services</a>
+      <div class="dropdown-content">
+        <a href="#services">Building Construction</a>
+        <a href="#services">House Renovation</a>
+        <a href="#services">Architecture Design</a>
+        <a href="#services">Material Supply</a>
+        <a href="#services">Construction Consultant</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="#projects">projects</a>
+      <div class="dropdown-content">
+        <a href="#projects">Residential</a>
+        <a href="#projects">Commercial</a>
+        <a href="#projects">Industrial</a>
+        <a href="#projects">Infrastructure</a>
+      </div>
+    </div>
+
+    <div class="dropdown">
+      <a href="#pricing">pricing</a>
+      <div class="dropdown-content">
+        <a href="#pricing">Basic Plan</a>
+        <a href="#pricing">Premium Plan</a>
+        <a href="#pricing">Ultimate Plan</a>
+      </div>
+    </div>
+
+    <a href="#contact">contact</a>
+    <a href="#blogs">blogs</a>
+  </nav>
+
+      <div class="icons">
+         <div id="menu-btn" class="fas fa-bars"></div>
+         <div id="info-btn" class="fas fa-info-circle" title="Click to See Contact Info"></div>
+         <div id="search-btn" class="fas fa-search" title="Click to See Search Box"></div>
+         <div id="login-btn" class="fas fa-user" title="Click to See Login Form"></div>
+         <a href="https://github.com/rajkamalbanjare96/construction-website" title="Click to See GitHub Repository">
+            <div id="github-btn" class="fab fa-github"></div>
+         </a>
+      </div>
+
+      <form action="" class="search-form">
+         <input type="search" name="" placeholder="search here..." id="search-box">
+         <label for="search-box" class="fas fa-search"></label>
+      </form>
+
+      <form action="" class="login-form">
+         <h3>login form</h3>
+         <input type="email" placeholder="enter your email" class="box">
+         <input type="password" placeholder="enter your password" class="box">
+         <div class="flex">
+            <input type="checkbox" name="" id="remember-me">
+            <label for="remember-me">remember me</label>
+            <a href="#">forgot password?</a>
+         </div>
+         <input type="submit" value="login now" class="btn">
+         <p>don't have an account <a href="#">create one!</a></p>
+      </form>
+
+   </header>
+
+<body>
+
+    <h1>About Mosike Electrical contractors</h1>
+
+    <p>This is the about page</p>
+
+
+    
+</body>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const exitBtn = document.getElementById('exit-btn');
+  const navbar = document.querySelector('.navbar');
+
+  // Show menu
+  menuBtn.addEventListener('click', () => {
+    navbar.classList.add('active');
+  });
+
+  // Hide menu
+  exitBtn.addEventListener('click', () => {
+    navbar.classList.remove('active');
+  });
+</script>
+
+ 
+
+
+</html>
