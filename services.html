@@ -1,11 +1,1473 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Mosike Electrical Contractors | Services</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <style>
+        :root {
+            --primary-color: #db3434;
+            --secondary-color: #ff6b6b;
+            --accent-color: #f1c40f;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f8f9fa;
+            --bg-dark: #34495e;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+    /* Enhanced Header */
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+     /* Header */
+        .header {
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem 9%; /* Slightly reduced padding for a tighter header */
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header .logo img { height: 4.5rem; transition: var(--transition); } /* Reduced logo size */
+        .header .logo img:hover { transform: scale(1.05); }
+
+        .header .navbar { display: flex; gap: 1.8rem; align-items: center; } /* Reduced gap */
+        .header .navbar a {
+            font-size: 1.5rem; /* Reduced navbar font size */
+            color: var(--text-dark); text-transform: capitalize; text-decoration: none;
+            padding: 0.5rem 0; position: relative;
+        }
+        .header .navbar a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 2px; background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .header .navbar a:hover::after, .header .navbar a.active::after { width: 100%; }
+        .header .navbar a:hover, .header .navbar a.active { color: var(--primary-color); }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff;
+            min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1; border-radius: 0.5rem; padding: 0.5rem 0;
+            border-top: 3px solid var(--primary-color);
+        }
+        .dropdown-content a {
+            color: var(--text-dark); padding: 1rem 1.5rem; /* Adjusted padding */
+            text-decoration: none; display: block; font-size: 1.4rem; /* Reduced font size */
+            text-transform: capitalize;
+        }
+        .dropdown-content a::after { display: none; }
+        .dropdown-content a:hover, .dropdown-content a.active {
+            background-color: var(--bg-light); color: var(--primary-color);
+        }
+        
+
+        .header .icons div {
+            height: 4rem; width: 4rem; line-height: 4rem; /* Reduced size */
+            font-size: 1.6rem; /* Reduced icon font size */
+            background: var(--bg-light); color: var(--text-dark);
+            cursor: pointer; text-align: center; margin-left: 0.4rem;
+            border-radius: 50%; transition: var(--transition);
+        }
+        .header .icons div:hover {
+            background: var(--primary-color); color: white; transform: scale(1.1);
+        }
+
+
+        /* Improved Loader */
+        .electric-loader {
+            width: 80px;
+            height: 80px;
+            border: 5px solid var(--primary-color);
+            border-top-color: var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite, pulsate 2s ease-in-out infinite;
+        }
+
+        @keyframes pulsate {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.2) rotate(180deg); }
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 5%;
+        }
+
+        .service-card {
+            position: relative;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            padding: 2rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-bottom: 4px solid transparent;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            background: rgba(52, 152, 219, 0.1);
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--primary-color);
+            color: white;
+            transform: rotateY(360deg);
+            transition: transform 0.8s, background 0.3s, color 0.3s;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .service-features li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-features li i {
+            color: var(--primary-color);
+            margin-right: 10px;
+        }
+
+        .service-hover {
+            margin-top: auto;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .service-card:hover .service-hover {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Service Spotlight */
+        .service-spotlight {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a2a3a 100%);
+            color: var(--text-light);
+            padding: 4rem 5%;
+            margin: 3rem 0;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .spotlight-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .spotlight-text h3 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .spotlight-text p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .spotlight-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .spotlight-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .spotlight-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .service-spotlight::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('_images/circuit-pattern.svg');
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 4rem 5% 2rem;
+            margin-top: 5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* Testimonials Slider */
+        .testimonials {
+            padding: 5rem 5%;
+            background: var(--bg-light);
+        }
+
+        .testimonial-slider {
+            margin-top: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonial-slide {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            height: auto;
+        }
+
+        .testimonial-content {
+            position: relative;
+            padding: 1.5rem;
+            font-style: italic;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .testimonial-content::before {
+            content: '"';
+            font-size: 5rem;
+            position: absolute;
+            top: -2rem;
+            left: -1rem;
+            color: rgba(52, 152, 219, 0.2);
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 1rem;
+            border: 3px solid var(--primary-color);
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-info h4 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        .testimonial-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .testimonial-rating {
+            color: var(--accent-color);
+            margin-top: 0.5rem;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            padding: 5rem 5%;
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-white:hover {
+            background: var(--accent-color);
+            color: var(--text-dark);
+        }
+
+        .cta-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('_images/circuit-pattern.svg');
+            opacity: 0.1;
+            z-index: 1;
+        }
+
+        /* Custom animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Service Stats */
+        .service-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
+            background: var(--bg-light);
+            margin: 3rem 0;
+            border-radius: 12px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #777;
+            font-size: 1rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .spotlight-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .service-stats {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 4rem 5%;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            background: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            background: var(--bg-light);
+        }
+
+        .faq-question i {
+            transition: var(--transition);
+        }
+
+        .faq-answer {
+            background: white;
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-question {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 1.5rem;
+            padding-top: 0;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+        
+        /* Toast notification */
+        .toast-notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--accent-color);
+            color: var(--text-dark);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+        
+        .toast-notification.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .toast-notification i {
+            font-size: 1.2rem;
+        }
+        
+        /* Services tab filter */
+        .service-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .service-card {
+            transition: var(--transition), opacity 0.5s ease;
+        }
+        
+        .service-card.hide {
+            display: none;
+        }
+        
+        .service-card.show {
+            display: flex;
+            animation: fadeIn 0.5s forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Progress indicator */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: transparent;
+            z-index: 9999;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--secondary-color);
+            width: 0%;
+        }
+    </style>
 </head>
+
 <body>
+
+<!-- Progress indicator -->
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- Loader -->
+<div class="loader">
+    <div class="electric-loader"></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <a href="index.html" class="logo">
+        <img src="_images/logo.jpg" alt="Logo" width="100" height="100" />
+    </a>
+
+    <nav class="navbar">
+        <div class="exit-btn" id="exit-btn">&times;</div>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+
+        <div class="dropdown">
+            <a href="services.html" class="active">Services</a>
+            <div class="dropdown-content">
+                <a href="electrical_wiring.html">Electrical Wiring</a>
+                <a href="lighting_installation.html">Lighting Installation</a>
+                <a href="circuit_design.html">Circuit Design</a>
+                <a href="power_backup.html">Power Backup Systems</a>
+                <a href="safety_inspection.html">Safety Inspection & Compliance</a>
+            </div>
+        </div>
+
+    <div class="dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="dropdown-content">
+            <a href="projects.html">Residential</a>
+            <a href="projects.html">Commercial</a>
+            <a href="projects.html">Industrial</a>
+            <a href="projects.html">Government</a>
+        </div>
+    </div>
+
     
+
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="icons">
+        <div id="menu-btn" class="fas fa-bars"></div>
+        <div id="info-btn" class="fas fa-info-circle" title="Click to See Contact Info"></div>
+        <div id="search-btn" class="fas fa-search" title="Click to See Search Box"></div>
+        <div id="login-btn" class="fas fa-user" title="Click to See Login Form"></div>
+    </div>
+
+    <!-- Search Form -->
+    <form class="search-form">
+        <input type="search" placeholder="Search services, projects, etc..." id="search-box" />
+        <label for="search-box" class="fas fa-search"></label>
+    </form>
+
+    <!-- Login Form -->
+    <form class="login-form">
+        <h3>Client Login</h3>
+        <input type="email" placeholder="Enter your email" class="box" />
+        <input type="password" placeholder="Enter your password" class="box" />
+        <div class="flex">
+            <input type="checkbox" id="remember-me" />
+            <label for="remember-me">Remember me</label>
+            <a href="#">Forgot password?</a>
+        </div>
+        <input type="submit" value="Login Now" class="btn" />
+        <p>Don't have an account? <a href="#">Create one!</a></p>
+    </form>
+</header>
+
+<!-- Contact Info -->
+<div class="contact-info">
+    <div id="close-contact-info" class="fas fa-times"></div>
+
+    <div class="info">
+        <i class="fas fa-phone"></i>
+        <h3>Phone Number</h3>
+        <p>+123-456-7890</p>
+        <p>+111-222-3333</p>
+    </div>
+
+    <div class="info">
+        <i class="fas fa-envelope"></i>
+        <h3>Email Address</h3>
+        <p>info@mosikeelectrical.com</p>
+        <p>support@mosikeelectrical.com</p>
+    </div>
+
+    <div class="info">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Office Address</h3>
+        <p>123 Electric Ave, Power City, SA</p>
+        <a href="https://maps.google.com" target="_blank" class="btn" style="margin-top: 10px;">
+            <i class="fas fa-map-marked-alt"></i> Get Directions
+        </a>
+    </div>
+
+    <div class="share">
+        <a href="#" class="fab fa-facebook-f"></a>
+        <a href="#" class="fab fa-twitter"></a>
+        <a href="#" class="fab fa-instagram"></a>
+        <a href="#" class="fab fa-linkedin"></a>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="hero-section" data-aos="fade-up">
+    <div class="hero-content">
+        <h1>Expert Electrical Services</h1>
+        <p>Powering homes and businesses with safety and excellence since 2010</p>
+        <div class="hero-buttons">
+            <a href="#services" class="btn">Explore Our Services</a>
+            <a href="#contact" class="btn btn-outline">Get a Free Quote</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Stats -->
+<div class="service-stats" data-aos="fade-up">
+    <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="stat-icon">
+            <i class="fas fa-plug"></i>
+        </div>
+        <div class="stat-number" data-count="1500">0</div>
+        <div class="stat-label">Projects Completed</div>
+    </div>
+    
+    <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="stat-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-number" data-count="850">0</div>
+        <div class="stat-label">Happy Clients</div>
+    </div>
+    
+    <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="stat-icon">
+            <i class="fas fa-certificate"></i>
+        </div>
+        <div class="stat-number" data-count="15">0</div>
+        <div class="stat-label">Years Experience</div>
+    </div>
+    
+    <div class="stat-card" data-aos="zoom-in" data-aos-delay="400">
+        <div class="stat-icon">
+            <i class="fas fa-hard-hat"></i>
+        </div>
+        <div class="stat-number" data-count="25">0</div>
+        <div class="stat-label">Expert Electricians</div>
+    </div>
+</div>
+
+<!-- Services Section -->
+<section class="services" id="services">
+    <h2 class="section-title" data-aos="fade-up">Our Electrical Services</h2>
+    <p class="section-description" data-aos="fade-up">Comprehensive solutions for all your residential and commercial electrical needs</p>
+
+    <!-- Service Filter Tabs -->
+    <div class="service-filter" data-aos="fade-up">
+        <button class="filter-btn active" data-filter="all">All Services</button>
+        <button class="filter-btn" data-filter="residential">Residential</button>
+        <button class="filter-btn" data-filter="commercial">Commercial</button>
+        <button class="filter-btn" data-filter="industrial">Industrial</button>
+    </div>
+
+    <div class="services-grid">
+        <!-- Service Card 1 -->
+        <div class="service-card residential" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Electrical Wiring</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Residential & Commercial</li>
+                <li><i class="fas fa-check"></i> Safety Certified</li>
+                <li><i class="fas fa-check"></i> Energy Efficient</li>
+                <li><i class="fas fa-check"></i> 10-Year Warranty</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="electrical_wiring.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Service Card 2 -->
+        <div class="service-card residential commercial" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-icon"><i class="fas fa-lightbulb"></i></div>
+            <h3>Lighting Installation</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Indoor & Outdoor</li>
+                <li><i class="fas fa-check"></i> LED Solutions</li>
+                <li><i class="fas fa-check"></i> Smart Lighting</li>
+                <li><i class="fas fa-check"></i> Decorative Options</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="lighting_installation.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Service Card 3 -->
+        <div class="service-card industrial commercial" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-icon"><i class="fas fa-sitemap"></i></div>
+            <h3>Circuit Design</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Custom Solutions</li>
+                <li><i class="fas fa-check"></i> Load Balancing</li>
+<li><i class="fas fa-check"></i> System Upgrades</li>
+                <li><i class="fas fa-check"></i> Smart Integration</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="circuit_design.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Service Card 4 -->
+        <div class="service-card residential commercial industrial" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-icon"><i class="fas fa-battery-full"></i></div>
+            <h3>Power Backup Systems</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Generators</li>
+                <li><i class="fas fa-check"></i> UPS Systems</li>
+                <li><i class="fas fa-check"></i> Solar Integration</li>
+                <li><i class="fas fa-check"></i> Maintenance Plans</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="power_backup.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Service Card 5 -->
+        <div class="service-card residential commercial industrial" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Safety Inspection & Compliance</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Code Compliance</li>
+                <li><i class="fas fa-check"></i> Risk Assessment</li>
+                <li><i class="fas fa-check"></i> Certificate Issuance</li>
+                <li><i class="fas fa-check"></i> Regular Maintenance</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="safety_inspection.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Service Card 6 -->
+        <div class="service-card commercial industrial" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-icon"><i class="fas fa-industry"></i></div>
+            <h3>Industrial Automation</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> PLC Programming</li>
+                <li><i class="fas fa-check"></i> Control Systems</li>
+                <li><i class="fas fa-check"></i> SCADA Integration</li>
+                <li><i class="fas fa-check"></i> Process Optimization</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="industrial_automation.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Service Card 7 -->
+        <div class="service-card residential commercial" data-aos="fade-up" data-aos-delay="700">
+            <div class="service-icon"><i class="fas fa-cogs"></i></div>
+            <h3>Smart Home Integration</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> IoT Devices</li>
+                <li><i class="fas fa-check"></i> Home Automation</li>
+                <li><i class="fas fa-check"></i> Voice Control</li>
+                <li><i class="fas fa-check"></i> Security Systems</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="smart_home.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+
+        <!-- Service Card 8 -->
+        <div class="service-card commercial industrial" data-aos="fade-up" data-aos-delay="800">
+            <div class="service-icon"><i class="fas fa-project-diagram"></i></div>
+            <h3>Network & Data Cabling</h3>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Structured Cabling</li>
+                <li><i class="fas fa-check"></i> Fiber Optics</li>
+                <li><i class="fas fa-check"></i> Network Setup</li>
+                <li><i class="fas fa-check"></i> Testing & Certification</li>
+            </ul>
+            <div class="service-hover">
+                <a href="#contact" class="btn">Get Quote</a>
+                <a href="network_cabling.html" class="btn btn-outline">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Spotlight -->
+<section class="service-spotlight" data-aos="fade-up">
+    <div class="spotlight-content">
+        <div class="spotlight-text" data-aos="fade-right">
+            <h3>Energy Efficiency Solutions</h3>
+            <p>Our energy efficiency audits and implementations help you save money while reducing your carbon footprint. Our team of experts analyzes your current electrical systems and recommends energy-saving solutions tailored to your specific needs.</p>
+            <p>Benefits include reduced utility bills, extended equipment lifespan, and environmentally friendly operations.</p>
+            <a href="energy_efficiency.html" class="btn">Learn More</a>
+        </div>
+        <div class="spotlight-image" data-aos="fade-left">
+            <img src="_images/energy-efficiency.jpg" alt="Energy Efficiency Solutions">
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Slider -->
+<section class="testimonials" id="testimonials">
+    <h2 class="section-title" data-aos="fade-up">What Our Clients Say</h2>
+    <p class="section-description" data-aos="fade-up">Read testimonials from satisfied customers who trusted our electrical services</p>
+
+    <div class="testimonial-slider swiper" data-aos="fade-up">
+        <div class="swiper-wrapper">
+            <!-- Testimonial 1 -->
+            <div class="swiper-slide testimonial-slide">
+                <div class="testimonial-content">
+                    Mosike Electrical Contractors completely rewired our home after we discovered some unsafe wiring from the previous owner. They were professional, efficient, and ensured everything was up to code. I feel so much safer now!
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="_images/testimonial-1.jpg" alt="Sarah Johnson">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Sarah Johnson</h4>
+                        <p>Homeowner</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="swiper-slide testimonial-slide">
+                <div class="testimonial-content">
+                    We hired Mosike for our retail store's lighting redesign. The difference is night and day! Our products look better, customers stay longer, and our energy bills have decreased by 30%. Highly recommend their commercial services.
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="_images/testimonial-2.jpg" alt="Mark Davis">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Mark Davis</h4>
+                        <p>Business Owner</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="swiper-slide testimonial-slide">
+                <div class="testimonial-content">
+                    After a power surge damaged several appliances, we called Mosike to install a whole-house surge protector. Their team was knowledgeable and installed everything quickly. Great value for the peace of mind it provides!
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-avatar">
+                        <img src="_images/testimonial-3.jpg" alt="Elena Martinez">
+                    </div>
+                    <div class="testimonial-info">
+                        <h4>Elena Martinez</h4>
+                        <p>Residential Client</p>
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section" id="faq">
+    <h2 class="section-title" data-aos="fade-up">Frequently Asked Questions</h2>
+    <p class="section-description" data-aos="fade-up">Find answers to common questions about our electrical services</p>
+
+    <div class="faq-container">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+            <div class="faq-question">
+                <span>Are your electricians licensed and insured?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, all our electricians are fully licensed, certified, and insured. We prioritize safety and compliance with all local and national electrical codes. We also carry comprehensive liability insurance and workers' compensation coverage for your peace of mind.</p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+            <div class="faq-question">
+                <span>How much does a typical electrical service call cost?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Our service calls typically start at $89 for diagnosis and the first hour of labor. Additional costs depend on the specific requirements of your electrical issue, parts needed, and complexity of the work. We always provide a detailed quote before beginning any work.</p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 3 -->
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+            <div class="faq-question">
+                <span>Do you offer emergency electrical services?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, we offer 24/7 emergency electrical services for critical situations. Our emergency response team is available day and night to handle urgent electrical issues such as power outages, electrical fires, exposed wiring, and other hazardous conditions.</p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+            <div class="faq-question">
+                <span>What warranty do you offer on your services?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>We stand behind our work with a comprehensive warranty. Most of our electrical services come with a 1-year warranty on labor and workmanship. Additionally, manufacturer warranties cover any equipment or parts we install, often ranging from 1-10 years depending on the product.</p>
+            </div>
+        </div>
+
+        <!-- FAQ Item 5 -->
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="500">
+            <div class="faq-question">
+                <span>How long does a typical electrical project take?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Project timelines vary based on scope and complexity. Minor repairs or installations may take only a few hours, while complete home rewiring or major commercial projects could take several days to weeks. During our initial consultation, we'll provide you with a detailed timeline specific to your project.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section" data-aos="fade-up">
+    <div class="cta-content">
+        <h2>Ready to Get Started?</h2>
+        <p>Contact us today for a free consultation and quote on your electrical project.</p>
+        <div class="cta-buttons">
+            <a href="contact.html" class="btn btn-white">Request a Quote</a>
+            <a href="tel:+123-456-7890" class="btn btn-outline">Call Us Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <h4>About Us</h4>
+            <p>Mosike Electrical Contractors is a premier electrical service provider with over 15 years of experience serving residential, commercial, and industrial clients.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h4>Our Services</h4>
+            <ul class="footer-links">
+                <li><a href="electrical_wiring.html"><i class="fas fa-angle-right"></i> Electrical Wiring</a></li>
+                <li><a href="lighting_installation.html"><i class="fas fa-angle-right"></i> Lighting Installation</a></li>
+                <li><a href="circuit_design.html"><i class="fas fa-angle-right"></i> Circuit Design</a></li>
+                <li><a href="power_backup.html"><i class="fas fa-angle-right"></i> Power Backup Systems</a></li>
+                <li><a href="safety_inspection.html"><i class="fas fa-angle-right"></i> Safety Inspection</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="index.html"><i class="fas fa-angle-right"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-angle-right"></i> About</a></li>
+                <li><a href="services.html"><i class="fas fa-angle-right"></i> Services</a></li>
+                <li><a href="projects.html"><i class="fas fa-angle-right"></i> Projects</a></li>
+                <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Contact Info</h4>
+            <ul class="footer-links">
+                <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Electric Ave, Power City</a></li>
+                <li><a href="tel:+123-456-7890"><i class="fas fa-phone"></i> +123-456-7890</a></li>
+                <li><a href="mailto:info@mosikeelectrical.com"><i class="fas fa-envelope"></i> info@mosikeelectrical.com</a></li>
+                <li><a href="#"><i class="fas fa-clock"></i> Mon-Fri: 8am - 6pm</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <p>&copy; 2025 Mosike Electrical Contractors. All Rights Reserved | Designed by Your Design Agency</p>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<div class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast-notification">
+    <i class="fas fa-check-circle"></i>
+    <span id="toast-message">Message sent successfully!</span>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+<script>
+    // Initialize AOS animations
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false
+    });
+
+    // Initialize Swiper slider
+    var swiper = new Swiper('.testimonial-slider', {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        }
+    });
+
+    // Loader
+    $(window).on('load', function () {
+        setTimeout(function() {
+            $('.loader').fadeOut(500);
+        }, 1000);
+    });
+
+    // Menu Toggle
+    $('#menu-btn').click(function() {
+        $('.navbar').toggleClass('active');
+    });
+
+    // Search Toggle
+    $('#search-btn').click(function() {
+        $('.search-form').toggleClass('active');
+    });
+
+    // Login Toggle
+    $('#login-btn').click(function() {
+        $('.login-form').toggleClass('active');
+    });
+
+    // Contact Info Toggle
+    $('#info-btn').click(function() {
+        $('.contact-info').toggleClass('active');
+    });
+
+    // Close Contact Info
+    $('#close-contact-info').click(function() {
+        $('.contact-info').removeClass('active');
+    });
+
+    // Exit Navigation
+    $('#exit-btn').click(function() {
+        $('.navbar').removeClass('active');
+    });
+
+    // FAQ Accordion
+    $('.faq-question').click(function() {
+        $(this).parent('.faq-item').toggleClass('active');
+        $(this).parent('.faq-item').siblings().removeClass('active');
+    });
+
+    // Progress Bar
+    window.onscroll = function() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+        
+        // Back to top button visibility
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            document.querySelector('.back-to-top').classList.add('visible');
+        } else {
+            document.querySelector('.back-to-top').classList.remove('visible');
+        }
+    };
+
+    // Back to top functionality
+    document.querySelector('.back-to-top').addEventListener('click', function() {
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Service filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            const filterValue = button.getAttribute('data-filter');
+            
+            // Filter service cards
+            serviceCards.forEach(card => {
+                card.classList.remove('show');
+                card.classList.add('hide');
+                
+                if (filterValue === 'all' || card.classList.contains(filterValue)) {
+                    setTimeout(() => {
+                        card.classList.remove('hide');
+                        card.classList.add('show');
+                    }, 100);
+                }
+            });
+        });
+    });
+
+    // Animate stats counter
+    const counterElements = document.querySelectorAll('.stat-number');
+    const animationDuration = 2000;
+    
+    const animateCounters = () => {
+        counterElements.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            const count = +counter.innerText;
+            const increment = Math.ceil(target / (animationDuration / 16));
+            
+            if (count < target) {
+                counter.innerText = Math.min(count + increment, target);
+                setTimeout(animateCounters, 16);
+            }
+        });
+    };
+    
+    // Start counter animation when elements are in viewport
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    
+    counterElements.forEach(counter => {
+        observer.observe(counter.parentElement);
+    });
+
+    // Toast notification example
+    function showToast(message) {
+        const toast = document.querySelector('.toast-notification');
+        document.getElementById('toast-message').textContent = message;
+        toast.classList.add('show');
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000);
+    }
+    
+    // Example usage:
+    // showToast('Successfully subscribed to newsletter!');
+</script>
 </body>
 </html>

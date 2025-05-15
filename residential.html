@@ -3,17 +3,651 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="style.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Projects | Mosike Electrical Contractors</title>
+    <meta name="description" content="Explore Mosike Electrical Contractors' portfolio of residential, commercial, industrial, and infrastructure electrical projects showcasing our expertise and quality workmanship.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <style>
+        :root {
+            --primary-color: #db3434;
+            --secondary-color: #ff6b6b;
+            --accent-color: #f1c40f;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f8f9fa;
+            --bg-dark: #34495e;
+            --transition: all 0.3s ease;
+        }
 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
 
-   <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <title>Residential | Mosike Electrical Contractors</title>
+        /* Progress Indicator */
+        .progress-container {
+            width: 100%; height: 5px; background-color: transparent;
+            position: fixed; top: 0; left: 0; z-index: 2000;
+        }
+        .progress-bar {
+            height: 5px; background-color: var(--primary-color); width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed; top: 0; left: 0; height: 100%; width: 100%;
+            z-index: 10000; background: #fff; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        .loader.fade-out { opacity: 0; visibility: hidden; }
+        .electric-loader {
+            width: 80px; height: 80px; border: 5px solid var(--primary-color);
+            border-top-color: var(--secondary-color); border-radius: 50%;
+            animation: spin 1s linear infinite, pulsate 2s ease-in-out infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulsate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Header */
+        .header {
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem 9%;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header .logo img { height: 4.5rem; transition: var(--transition); }
+        .header .logo img:hover { transform: scale(1.05); }
+
+        .header .navbar { display: flex; gap: 1.8rem; align-items: center; }
+        .header .navbar a {
+            font-size: 1.5rem; color: var(--text-dark); text-transform: capitalize;
+            text-decoration: none; padding: 0.5rem 0; position: relative;
+        }
+        .header .navbar a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 2px; background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .header .navbar a:hover::after, .header .navbar a.active::after { width: 100%; }
+        .header .navbar a:hover, .header .navbar a.active { color: var(--primary-color); }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1; border-radius: 0.5rem; padding: 0.5rem 0;
+            border-top: 3px solid var(--primary-color);
+        }
+        .dropdown-content a {
+            color: var(--text-dark); padding: 1rem 1.5rem;
+            text-decoration: none; display: block; font-size: 1.4rem;
+            text-transform: capitalize;
+        }
+        .dropdown-content a::after { display: none; }
+        .dropdown-content a:hover, .dropdown-content a.active {
+            background-color: var(--bg-light); color: var(--primary-color);
+        }
+        .dropdown.active .dropdown-content { display: block; }
+
+        .header .navbar .exit-btn {
+            display: none; font-size: 2.5rem; color: var(--text-dark);
+            cursor: pointer; position: absolute; top: 1.5rem; right: 1.5rem;
+        }
+
+        .header .icons div {
+            height: 4rem; width: 4rem; line-height: 4rem;
+            font-size: 1.6rem; background: var(--bg-light); color: var(--text-dark);
+            cursor: pointer; text-align: center; margin-left: 0.4rem;
+            border-radius: 50%; transition: var(--transition);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .header .icons div:hover {
+            background: var(--primary-color); color: white; transform: scale(1.1);
+        }
+        .header .icons #menu-btn { display: none; }
+
+        /* General Section Styling */
+        section { padding: 3.5rem 9%; }
+        .section-title {
+            text-align: center; font-size: 2.2rem;
+            margin-bottom: 1rem; color: var(--text-dark); text-transform: capitalize;
+        }
+        .page-breadcrumb-section {
+            background-color: var(--bg-light);
+            padding: 2rem 9%;
+            margin-bottom: 0;
+        }
+        .page-breadcrumb-section .section-title { margin-bottom: 0.5rem; }
+        .page-breadcrumb {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+        }
+        .page-breadcrumb a { color: var(--primary-color); text-decoration: none; }
+        .page-breadcrumb a:hover { text-decoration: underline; }
+        .page-breadcrumb span { color: var(--text-dark); }
+
+        .section-description {
+            text-align: center; max-width: 750px;
+            margin: 0 auto 2.5rem; color: #666;
+            font-size: 1.05rem; line-height: 1.6;
+        }
+
+        /* Project Filter Bar */
+        .project-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+            gap: 1rem;
+        }
+        .filter-btn {
+            padding: 0.6rem 1.5rem;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            transition: var(--transition);
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Project Search Bar */
+        .project-search {
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        .project-search input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 4rem;
+            font-size: 1.4rem;
+            border: 2px solid var(--bg-light);
+            border-radius: 50px;
+            transition: var(--transition);
+        }
+        .project-search input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        .project-search button {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .project-search button:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.7rem 1.6rem; background: var(--primary-color); color: white !important;
+            border-radius: 50px; text-decoration: none; font-weight: 600;
+            transition: var(--transition); border: 2px solid var(--primary-color);
+            cursor: pointer; display: inline-flex; align-items: center;
+            justify-content: center; gap: 0.5rem;
+            font-size: 1.45rem; line-height: 1.4;
+        }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important;
+        }
+        .btn:hover {
+            background: var(--secondary-color); border-color: var(--secondary-color);
+            color: white !important; transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        .btn-outline:hover { background: var(--primary-color); color: white !important; }
+        .btn-white {
+            background: white; color: var(--primary-color) !important; border-color: white;
+        }
+        .btn-white:hover {
+            background: var(--accent-color); color: var(--text-dark) !important; border-color: var(--accent-color);
+        }
+
+        /* Hero Section Style */
+        .hero-section {
+            position: relative;
+            background-size: cover; background-position: center;
+            color: var(--text-light); padding: 7rem 5%;
+            text-align: center; margin-bottom: 0;
+        }
+        .hero-content h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+        .hero-content p { font-size: 1.15rem; max-width: 700px; margin: 0 auto 2rem; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        /* Projects Grid Section Style */
+        .projects-section { padding: 4rem 9%; }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+        .project-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .project-image {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+        }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-out;
+        }
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+        .project-badges {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        .project-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        .project-date {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+        }
+        .project-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .project-info h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            text-transform: capitalize;
+        }
+        .project-info p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        .project-metrics {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .project-metric {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1.1rem;
+        }
+        .project-metric i {
+            color: var(--primary-color);
+        }
+        .project-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+            margin-top: auto;
+        }
+        .client-testimonial {
+            font-style: italic;
+            color: #777;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 20px;
+            border-left: 3px solid var(--primary-color);
+        }
+        .social-share {
+            display: flex;
+            gap: 5px;
+        }
+        .social-share a {
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eee;
+            color: #666;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .social-share a:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .project-info .btn-details {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .project-info .btn-details:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Load More Button */
+        .load-more-container {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .load-more {
+            padding: 0.8rem 2.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .load-more:hover {
+            background: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Before/After Comparison */
+        .image-comparison {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            overflow: hidden;
+        }
+        .image-comparison .before,
+        .image-comparison .after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .image-comparison .before img,
+        .image-comparison .after img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .image-comparison .after {
+            width: 50%;
+            border-right: 2px solid white;
+        }
+        .image-comparison .slider {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 30px;
+            transform: translateX(-50%);
+            cursor: ew-resize;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .image-comparison .slider-button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        .image-comparison .label {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+        .image-comparison .before-label {
+            top: 10px;
+            left: 10px;
+        }
+        .image-comparison .after-label {
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Quick Contact Form */
+        .quick-contact {
+            margin-top: 4rem;
+            background: var(--bg-light);
+            padding: 3rem;
+            border-radius: 10px;
+        }
+        .quick-contact h3 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        .quick-contact form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .quick-contact .form-group {
+            margin-bottom: 1rem;
+        }
+        .quick-contact label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        .quick-contact input,
+        .quick-contact select,
+        .quick-contact textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        .quick-contact input:focus,
+        .quick-contact select:focus,
+        .quick-contact textarea:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        .quick-contact textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .quick-contact .btn-submit {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .quick-contact .btn-submit:hover {
+            background: var(--secondary-color);
+        }
+
+        /* CTA Section Style */
+        .cta-section {
+            text-align: center;
+            padding: 5rem 5%;
+            color: white;
+            background-size: cover;
+            background-position: center;
+            margin-top: 4rem;
+        }
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta-content p {
+            font-size: 1.15rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Footer Style */
+        .footer {
+            background: var(--bg-dark); color: var(--text-light);
+            padding: 3.5rem 9% 1.8rem; margin-top: 3.5rem;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2.5rem; margin-bottom: 2.5rem;
+        }
+        .footer-column h4 {
+            font-size: 1.4rem; margin-bottom: 1.2rem;
+            color: var(--accent-color); position: relative; padding-bottom: 8px;
+        }
+        .footer-column h4::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 40px; height: 2px; background: var(--primary-color); border-radius: 2px;
+        }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a, .footer-column p.footer-text {
+            color: var(--text-light); text-decoration: none; transition: var(--transition);
+            display: flex; align-items: center; gap: 7px; font-size:1.4rem; opacity: 0.9;
+        }
+        .footer-column p.footer-text {line-height: 1.6; display: block;}
+        .footer-links a:hover { color: var(--primary-color); transform: translateX(4px); opacity: 1;}
+        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light); border-radius: 50%; transition: var(--transition);
+            text-decoration: none; font-size: 1.7rem;
+        }
+        .social-links a:hover {
+            transform: translateY(-4px) scale(1.1); background: var(--primary-color); color: white;
+        }
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.8rem;
+            text-align: center; font-size: 1.3rem; opacity: 0.7;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed; bottom: 1.8rem; right: 1.8rem;
+            background: var(--primary-color); color: white;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0; visibility: hidden;
+            transition: var(--transition); box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999; font-size: 1.8rem;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--secondary-color); transform: translateY(-4px); }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) {
+            html { font-size: 55%; }
+            .header { padding: 1.2rem 2rem; }
+            section { padding: 2.5rem 2rem; }
+            .projects-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.9rem; }
+            .project-filter { flex-direction: column; align-items: center; }
+            .quick-contact form { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            html { font-size: 50%; }
+            .hero-content h1 { font-size: 2rem; }
+            .section-title { font-size: 1.7rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .project-footer { flex-direction: column; gap: 1rem; align-items: flex-start; }
+        }
+    </style>
 </head>
 <body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="loader">
+        <div class="electric-loader"></div>
+    </div>
+
     <header class="header">
-        <a href="index.html" class="logo"><img src="_images/logo.jpg " width="100" height="100" alt="Logo" class="logo"></a>
+        <a href="index.html" class="logo"><img src="_images/logo.jpg" alt="Mosike Electrical Contractors Logo" class="logo-img"></a>
 
         <nav class="navbar">
             <div class="exit-btn" id="exit-btn">&times;</div>
@@ -21,37 +655,28 @@
             <a href="about.html">about</a>
 
             <div class="dropdown">
-                <a href="#services" class="dropdown-toggle">services</a>
+                <a href="services.html" class="dropdown-toggle">services</a>
                 <div class="dropdown-content">
-                    <a href="#services">Building Construction</a>
-                    <a href="#services">House Renovation</a>
-                    <a href="#services">Architecture Design</a>
-                    <a href="#services">Material Supply</a>
-                    <a href="#services">Construction Consultant</a>
+                    <a href="electrical_wiring.html">Electrical Wiring</a>
+                    <a href="lighting_installation.html">Lighting Installation</a>
+                    <a href="circuit_design.html">Circuit Design</a>
+                    <a href="power_backup.html">Power Backup Systems</a>
+                    <a href="safety_inspection.html">Safety Inspection & Compliance</a>
                 </div>
             </div>
 
-            <div class="dropdown">
-                <a href="projects.html" class="dropdown-toggle">projects</a>
-                <div class="dropdown-content">
-                    <a href="residential.html">Residential</a>
-                    <a href="#projects">Commercial</a>
-                    <a href="#projects">Industrial</a>
-                    <a href="#projects">Infrastructure</a>
-                </div>
-            </div>
+     <div class="dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="dropdown-content">
+            <a href="projects.html">Residential</a>
+            <a href="projects.html">Commercial</a>
+            <a href="projects.html">Industrial</a>
+            <a href="projects.html">Government</a>
+        </div>
+    </div>
 
-            <div class="dropdown">
-                <a href="#pricing" class="dropdown-toggle">pricing</a>
-                <div class="dropdown-content">
-                    <a href="#pricing">Basic Plan</a>
-                    <a href="#pricing">Premium Plan</a>
-                    <a href="#pricing">Ultimate Plan</a>
-                </div>
-            </div>
-
-            <a href="#contact">contact</a>
-            <a href="#blogs">blogs</a>
+            <a href="contact.html">contact</a>
+            <a href="blogs.html">blogs</a>
         </nav>
 
         <div class="icons">
@@ -62,7 +687,7 @@
         </div>
 
         <form action="" class="search-form">
-            <input type="search" name="" placeholder="search here..." id="search-box">
+            <input type="search" name="query" placeholder="search here..." id="search-box">
             <label for="search-box" class="fas fa-search"></label>
         </form>
 
@@ -71,56 +696,160 @@
             <input type="email" placeholder="enter your email" class="box">
             <input type="password" placeholder="enter your password" class="box">
             <div class="flex">
-                <input type="checkbox" name="" id="remember-me">
+                <input type="checkbox" name="remember" id="remember-me">
                 <label for="remember-me">remember me</label>
                 <a href="#">forgot password?</a>
             </div>
             <input type="submit" value="login now" class="btn">
-            <p>don't have an account <a href="#">create one!</a></p>
+            <p>Don't have an account? <a href="#">Create one!</a></p>
         </form>
     </header>
 
+    <div class="contact-info">
+        <div id="close-contact-info" class="fas fa-times"></div>
+        <div class="info">
+            <i class="fas fa-phone"></i><h3>Phone Number</h3>
+            <p>+123-456-7890</p><p>+111-222-3333</p>
+        </div>
+        <div class="info">
+            <i class="fas fa-envelope"></i><h3>Email Address</h3>
+            <p>info@mosikeelectrical.com</p><p>support@mosikeelectrical.com</p>
+        </div>
+        <div class="info">
+            <i class="fas fa-map-marker-alt"></i><h3>Office Address</h3>
+            <p>123 Electric Ave, Power City, SA</p>
+            <a href="https://maps.google.com/?q=123+Electric+Ave,+Power+City,+SA" target="_blank" class="btn" style="margin-top: 10px;">
+                <i class="fas fa-map-marked-alt"></i> Get Directions
+            </a>
+        </div>
+        <div class="share">
+            <a href="#" class="fab fa-facebook-f" aria-label="Facebook"></a>
+            <a href="#" class="fab fa-twitter" aria-label="Twitter"></a>
+            <a href="#" class="fab fa-instagram" aria-label="Instagram"></a>
+            <a href="#" class="fab fa-linkedin" aria-label="LinkedIn"></a>
+        </div>
+    </div>
 
-    <h1>This is the Residential page</h1>
-    
-     <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const exitBtn = document.getElementById('exit-btn');
-        const navbar = document.querySelector('.navbar');
+    <section class="page-breadcrumb-section" data-aos="fade-up">
+        <h1 class="section-title">Projects</h1>
 
-        // Show menu
-        menuBtn.addEventListener('click', () => {
-            navbar.classList.add('active');
-        });
+        <p class="page-breadcrumb">
+            <a href="index.html">Home</a> / 
+            <span>Projects</span>
+        </p>
+    </section>
 
-        // Hide menu
-        exitBtn.addEventListener('click', () => {
-            navbar.classList.remove('active');
-        });
+    <section class="projects-section" data-aos="fade-up">
+        <div class="projects">
+            <div class="project">
+                <img src="_images/project-1.jpg" alt="Project 1">
+                <div class="project-info">
+                    <h3>Project 1</h3>
+                    <p>Construction, Design</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="_images/project-2.jpg" alt="Project 2">
+                <div class="project-info">
+                    <h3>Project 2</h3>
+                    <p>Construction, Design</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="_images/project-3.jpg" alt="Project 3">
+                <div class="project-info">
+                    <h3>Project 3</h3>
+                    <p>Construction, Design</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="_images/project-4.jpg" alt="Project 4">
+                <div class="project-info">
+                    <h3>Project 4</h3>
+                    <p>Construction, Design</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="_images/project-5.jpg" alt="Project 5">
+                <div class="project-info">
+                    <h3>Project 5</h3>
+                    <p>Construction, Design</p>
+                </div>
+            </div>
+            <div class="project">
+                <img src="_images/project-6.jpg" alt="Project 6">
+                <div class="project-info">
+                    <h3>Project 6</h3>
+                    <p>Construction, Design</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        // Dropdown click toggling
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevent link jump
-                const dropdown = this.parentElement;
+    <section class="cta-section" data-aos="fade-up">
+        <div class="cta-content">
+            <h2>Ready to Power Your Project?</h2>
+            <p>Contact us today for a free circuit design consultation and quote</p>
+            <div class="cta-buttons">
+                <a href="tel:+27115551234" class="btn btn-white">
+                    <i class="fas fa-phone"></i> Call Now
+                </a>
+                <a href="contact.html" class="btn btn-outline">
+                    <i class="fas fa-envelope"></i> Email Us
+                </a>
+            </div>
+        </div>
+    </section>
 
-                // Close other open dropdowns
-                document.querySelectorAll('.dropdown').forEach(d => {
-                    if (d !== dropdown) d.classList.remove('active');
-                });
+     <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-angle-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-angle-right"></i> Services</a></li>
+                    <li><a href="projects.html"><i class="fas fa-angle-right"></i> Projects</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="electrical_wiring.html"><i class="fas fa-bolt"></i> Electrical Wiring</a></li>
+                    <li><a href="lighting_installation.html"><i class="fas fa-lightbulb"></i> Lighting Installation</a></li>
+                    <li><a href="circuit_design.html"><i class="fas fa-project-diagram"></i> Circuit Design</a></li>
+                    <li><a href="power_backup.html"><i class="fas fa-car-battery"></i> Power Backup</a></li>
+                    <li><a href="safety_inspection.html"><i class="fas fa-shield-alt"></i> Safety Inspection</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123-456-7890</a></li>
+                    <li><a href="mailto:info@mosikeelectrical.com"><i class="fas fa-envelope"></i> info@mosikeelectrical.com</a></li>
+                </ul>
+                 <p style="color:var(--text-light); font-size:1.4rem; margin:0.8rem 0 0 0; display:flex; align-items:flex-start; gap:7px;"><i class="fas fa-map-marker-alt" style="margin-top:4px;"></i> 123 Electric Ave, Power City, SA</p>
+                 <h4 style="margin-top:2rem;">Connect With Us</h4>
+                 <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+             <div class="footer-column">
+                <h4>About Mosike</h4>
+                <p>Mosike Electrical Contractors is dedicated to providing top-tier electrical solutions. Our certified experts ensure safety, efficiency, and reliability for all your electrical needs.</p>
+                <a href="about.html" class="btn" style="margin-top:1.5rem; background: var(--accent-color); color: var(--text-dark) !important; border-color:var(--accent-color);">Learn More</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© <script>document.write(new Date().getFullYear())</script> Mosike Electrical Contractors. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-                // Toggle current one
-                dropdown.classList.toggle('active');
-            });
-        });
-
-        // Auto close dropdown if clicked outside
-        document.addEventListener('click', function(e) {
-            const isDropdown = e.target.closest('.dropdown');
-            if (!isDropdown) {
-                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
-            }
-        });
-    </script>
+    <script src="_js/aos.js"></script>
+    <script src="_js/main.js"></script>
 </body>
 </html>

@@ -5,7 +5,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Construction Website</title>
+   <title>Home | Mosike Electrical contractors est.2002</title>
 
    <!-- font awesome cdn link  -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -20,7 +20,728 @@
 </head>
 
 <body>
+    <style>
+        :root {
+            --primary-color: #db3434; /* Mosike Red */
+            --secondary-color: #ff6b6b; /* Lighter Red */
+            --accent-color: #f1c40f;   /* Yellow Accent */
+            --text-dark: #2c3e50;      /* Dark Blue/Grey for Text */
+            --text-light: #ecf0f1;     /* Light Grey/White for Text on Dark BG */
+            --bg-light: #f8f9fa;       /* Very Light Grey BG */
+            --bg-dark: #34495e;        /* Dark Blue/Grey BG */
+            --transition: all 0.3s ease;
+            --blue-original: #2563eb; /* Original blue for reference if needed, but new theme uses red */
+        }
 
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: #fff; /* Default white background */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background-color: transparent; /* Can be var(--bg-light) if preferred */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000; /* Highest */
+        }
+
+        .progress-bar {
+            height: 5px;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Improved Loader from Circuit Design Page */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 10000; /* Keep high for initial load */
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        .loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .electric-loader { /* Styled like Circuit Design Page */
+            width: 80px;
+            height: 80px;
+            border: 5px solid var(--primary-color);
+            border-top-color: var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite, pulsate 2s ease-in-out infinite;
+        }
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulsate { /* Added from Circuit Design */
+            0%, 100% { transform: scale(1); } /* Simplified pulsate for this loader's rotation */
+            50% { transform: scale(1.1); }
+        }
+
+
+        /* Enhanced Header from Circuit Design Page */
+        .header {
+            position: sticky; /* Changed from fixed to sticky */
+            top: 0;
+            left: 0; /* Not needed for sticky if full width */
+            right: 0; /* Not needed for sticky if full width */
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+            padding: 1.5rem 9%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header .logo img { /* Assuming class 'logo-img' is on the img tag */
+            height: 5rem;
+            transition: var(--transition);
+        }
+        .header .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .header .navbar {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .header .navbar a {
+            font-size: 1.7rem;
+            color: var(--text-dark);
+            text-transform: capitalize;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        .header .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .header .navbar a:hover::after,
+        .header .navbar a.active::after {
+            width: 100%;
+        }
+        .header .navbar a:hover,
+        .header .navbar a.active {
+            color: var(--primary-color);
+        }
+
+        /* Dropdown Styles (adapted for new theme) */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff; /* Solid white */
+            min-width: 220px; /* Wider dropdown */
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 0.5rem; /* Consistent radius */
+            padding: 0.5rem 0; /* Padding for the container */
+            border-top: 3px solid var(--primary-color);
+        }
+        .dropdown-content a {
+            color: var(--text-dark);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 1.5rem;
+            text-transform: capitalize;
+        }
+        .dropdown-content a::after { display: none; } /* Remove underline effect for dropdown items */
+
+        .dropdown-content a:hover,
+        .dropdown-content a.active {
+            background-color: var(--bg-light);
+            color: var(--primary-color);
+        }
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+        .navbar .exit-btn {
+            display: none;
+            font-size: 3rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .header .icons div {
+            height: 4.5rem;
+            width: 4.5rem;
+            line-height: 4.5rem;
+            font-size: 1.7rem;
+            background: var(--bg-light); /* Lighter background */
+            color: var(--text-dark);
+            cursor: pointer;
+            text-align: center;
+            margin-left: 0.5rem; /* Slightly more margin */
+            border-radius: 50%; /* Circular icons */
+            transition: var(--transition);
+        }
+        .header .icons div:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 4rem 9%; /* Consistent padding */
+            margin-bottom: 0; /* Reset from Circuit Design if sections are contiguous */
+        }
+        .section-title { /* From Circuit Design */
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            text-transform: capitalize; /* As per original .heading */
+        }
+        .section-description { /* From Circuit Design */
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            color: #666; /* Keep a readable grey */
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        /* About Section specific - Hero part */
+        .about-hero-content { /* Custom for the top part of About Us */
+             padding: 4rem 0; /* Adjust as needed */
+             text-align: center;
+        }
+        .about-hero-content h3 {
+            font-size: 2.8rem; /* Slightly smaller than section-title */
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+        .about-hero-content p {
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+        }
+
+
+        /* Video and Content Row in About */
+        .about .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 3rem; /* Spacing after the hero content */
+        }
+        .about .row .video {
+            flex: 1 1 40rem;
+        }
+        .about .row .video video {
+            width: 100%;
+            border-radius: 12px; /* More rounded */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); /* Softer shadow */
+        }
+        .about .row .content {
+            flex: 1 1 40rem;
+        }
+        /* Content h3 and p already covered by about-hero-content, adjust if structure is different */
+
+
+        /* Button Styles from Circuit Design */
+        .btn {
+            padding: 0.8rem 1.8rem; /* Adjusted padding slightly */
+            background: var(--primary-color);
+            color: white !important; /* Ensure text is white */
+            border-radius: 50px; /* Pill shape */
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--primary-color); /* For consistency with outline */
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1.6rem; /* Ensure font size is adequate */
+            line-height: 1.5; /* Ensure text doesn't get cut off */
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important; /* Ensure text is primary color */
+        }
+        .btn:hover {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white !important;
+            transform: scale(1.05); /* Kept from Circuit Design */
+            box-shadow: 0 5px 15px rgba(var(--secondary-color-rgb, 255, 107, 107), 0.4); /* Ensure --secondary-color-rgb is defined or use direct rgba */
+        }
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white !important;
+        }
+
+
+        /* Stats Boxes - Styled like Process Steps or Benefit Cards */
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            gap: 2rem;
+            margin-top: 5rem; /* Spacing */
+        }
+        .box-container .box { /* Styled like process-step */
+            background: white;
+            border-radius: 12px;
+            padding: 2.5rem 2rem; /* Adjusted padding */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: var(--transition);
+        }
+        .box-container .box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        .box-container .box h3 { /* Number style */
+            font-size: 3.5rem; /* Make numbers prominent */
+            color: var(--primary-color); /* Use primary color for numbers */
+            margin-bottom: 0.5rem; /* Space between number and text */
+        }
+        .box-container .box p { /* Text style */
+            font-size: 1.6rem; /* Readable text */
+            color: #666;
+            padding-top: 0; /* Reset padding if h3 has margin-bottom */
+            line-height: 1.5;
+        }
+
+        /* Service Icons - Styled like Benefit Cards */
+        .service-icons-section { /* Wrapper for this section */
+            padding: 4rem 9%;
+            background-color: var(--bg-light); /* Light background for contrast */
+            margin-top: 5rem;
+        }
+        .service-icons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); /* Grid layout */
+            gap: 2rem;
+            margin-top: 3rem; /* After section title */
+        }
+        .service-icon { /* Styled like benefit-card */
+            background: white;
+            border-radius: 12px;
+            overflow: hidden; /* If using a top colored bar or image */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            text-align: center; /* Center content */
+            padding: 2rem; /* Padding inside the card */
+        }
+        .service-icon:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        .service-icon i { /* Icon style */
+            font-size: 3.5rem; /* Larger icon */
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            display: block; /* Make it a block to center it if needed */
+        }
+        .service-icon h4 { /* Title style */
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin:0;
+        }
+
+        /* Founder & Team Section - Styled like Team Section in Circuit Design */
+        .founder-section, .team-section-wrapper {
+            padding: 4rem 9%;
+        }
+        .founder-section .member, .team-members .member { /* Common card style for member */
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: var(--transition);
+            text-align: center;
+            padding: 0; /* Remove padding if content has its own */
+            margin: 2rem auto; /* For single founder */
+            max-width: 35rem; /* For single founder card */
+        }
+        .founder-section .member:hover, .team-members .member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        .member-image-wrapper { /* If you want a colored top bar or specific image container */
+            /* background: var(--primary-color); */ /* Optional colored top */
+            padding: 2rem 2rem 0 2rem; /* Padding for the image part */
+        }
+        .member img.founder-img, .member img.team-img { /* founder-img for founder, team-img for team */
+            width: 15rem; /* Standardized size */
+            height: 15rem;
+            object-fit: cover;
+            border-radius: 50%; /* Circular image */
+            margin-bottom: 1.5rem; /* Space below image */
+            border: 5px solid var(--primary-color); /* Border like new theme */
+            padding: 5px; /* Padding inside border */
+            background-color: white; /* Ensure border padding is visible */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+         .founder-section .member img.founder-img { /* Larger image for the main founder */
+            width: 20rem;
+            height: 20rem;
+        }
+
+        .member-info { /* Content padding */
+            padding: 1.5rem 2rem 2rem 2rem;
+        }
+        .member-info h3 {
+            font-size: 2rem; /* Name */
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        .member-info .member-role { /* If you add a role subtitle */
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+            font-size: 1.5rem;
+        }
+        .member-info p { /* Bio */
+            font-size: 1.5rem;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 0; /* Remove default margin */
+        }
+
+        .team-members { /* Grid for multiple team members */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: 3rem;
+            margin-top: 3rem; /* After section title */
+        }
+        .team-members .member {
+            max-width: none; /* Override max-width for grid items */
+            margin: 0; /* Reset margin for grid items */
+        }
+
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 4rem 9%;
+            background-color: var(--bg-light); /* Light background */
+        }
+        .testimonials-grid { /* Renamed from .member2 */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        .testimonial {
+            background: white;
+            padding: 2.5rem; /* More padding */
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+        .testimonial:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        .testimonial p {
+            font-size: 1.6rem;
+            color: #555; /* Slightly darker for readability */
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-style: italic;
+            flex-grow: 1;
+        }
+        .testimonial p::before { /* Quotation mark style */
+            content: "\f10d"; /* FontAwesome quote-left */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+        .testimonial strong {
+            font-size: 1.6rem;
+            color: var(--text-dark); /* Darker name */
+            display: block;
+            text-align: right;
+            font-weight: 600; /* Bolder name */
+        }
+        .testimonial strong::before {
+            content: "— "; /* Em dash before name */
+        }
+
+        /* Search Form & Login Form (basic adoption of new theme colors) */
+        .search-form, .login-form {
+            position: fixed;
+            background: #fff;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: .5rem;
+            z-index: 1001;
+            transition: top 0.3s ease; /* Smooth transition */
+        }
+        .search-form { /* Positioning from original */
+            top: -110%; left: 0; right: 0;
+            display: flex; align-items: center;
+        }
+        .search-form.active { top: 0; }
+
+        .login-form { /* Positioning from original */
+            top: -110%; left: 50%;
+            transform: translateX(-50%);
+            width: 90%; max-width: 40rem;
+            text-align: center;
+        }
+        .login-form.active { top: 10rem; } /* Adjust as needed for sticky header */
+
+        .search-form #search-box, .login-form .box {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin: .7rem 0;
+            border: 1px solid #ccc;
+            border-radius: .5rem;
+        }
+        .search-form #search-box:focus, .login-form .box:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb, 219, 52, 52), 0.25);
+        }
+        .login-form h3 {
+            font-size: 2.2rem; color: var(--text-dark); text-transform: capitalize; margin-bottom: 1.5rem;
+        }
+        /* Buttons inside forms will use the global .btn style */
+
+        /* Contact Info Sidebar (basic adoption of new theme colors) */
+        .contact-info {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 35rem;
+            height: 100vh;
+            background: #fff;
+            padding: 2rem;
+            box-shadow: -0.5rem 0 1rem rgba(0,0,0,0.1);
+            z-index: 1002;
+            transition: right 0.3s linear;
+            overflow-y: auto;
+        }
+        .contact-info.active { right: 0; }
+        .contact-info #close-contact-info { font-size: 2.5rem; color: var(--text-dark); cursor: pointer; position: absolute; top: 1rem; right: 1.5rem; }
+        .contact-info #close-contact-info:hover { color: var(--primary-color); }
+        .contact-info .info { padding: 1.5rem 0; border-bottom: 1px solid #eee; }
+        .contact-info .info i { font-size: 2rem; color: var(--primary-color); margin-right: 1rem; }
+        .contact-info .info h3 { font-size: 2rem; color: var(--text-dark); padding-bottom: .5rem; }
+        .contact-info .info p { font-size: 1.5rem; color: #666; line-height: 1.6; }
+        .contact-info .share { padding-top: 2rem; text-align: center; }
+        .contact-info .share a { /* Styled like member-social links */
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px;
+            background: rgba(var(--primary-color-rgb, 219, 52, 52), 0.1);
+            color: var(--primary-color);
+            margin: 0 .3rem; border-radius: 50%; text-decoration: none;
+            font-size: 1.8rem; /* Slightly smaller icons */
+            transition: var(--transition);
+        }
+        .contact-info .share a:hover {
+            background: var(--primary-color); color: white; transform: translateY(-3px);
+        }
+
+
+        /* Enhanced Footer from Circuit Design Page */
+        .footer {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            padding: 4rem 9% 2rem; /* Match padding */
+            margin-top: 0; /* If sections have bottom margin, this can be 0 */
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        .footer-column h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color); /* Yellow accent for titles */
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 1rem; }
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size:1.5rem; /* Match other paragraph text */
+        }
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        .footer-links a i { /* If adding icons to footer links */
+            font-size: 1.2rem;
+        }
+        .social-links { /* For footer */
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 40px; height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border-radius: 50%;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 1.8rem;
+        }
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            background: var(--primary-color);
+            color: white;
+        }
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 1.4rem; /* Slightly larger copyright */
+            opacity: 0.8;
+        }
+
+        /* Back to top button from Circuit Design */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999;
+            font-size: 2rem;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive styles (basic merge, review needed for conflicts) */
+        @media (max-width: 991px) {
+            html { font-size: 55%; }
+            .header { padding: 1.5rem 2rem; }
+            section, .service-icons-section, .founder-section, .team-section-wrapper, .testimonials-section, .footer {
+                padding: 3rem 2rem; /* Adjusted section padding */
+             }
+        }
+
+        @media (max-width: 768px) {
+            .header .navbar .exit-btn { display: block; }
+            .header .navbar {
+                position: fixed; top: 0; left: -100%;
+                width: 30rem; height: 100vh; background: #fff;
+                flex-direction: column; align-items: flex-start;
+                padding: 5rem 2rem; z-index: 1001;
+                transition: left 0.3s linear; /* Changed to left transition */
+                box-shadow: 0.5rem 0 1rem rgba(0,0,0,0.1);
+            }
+            .header .navbar.active { left: 0; }
+            .header .navbar a, .header .navbar .dropdown > a {
+                display: block; margin: 1.5rem 0; font-size: 2rem; padding: 1rem 0;
+            }
+            .header .navbar .dropdown-content {
+                position: static; background-color: transparent; box-shadow: none;
+                padding-left: 2rem; border-top: none; /* Remove top border for mobile dropdown */
+            }
+            .header .navbar .dropdown.active .dropdown-content { display: block; }
+            .header .navbar .dropdown-content a { font-size: 1.8rem; padding: 0.8rem 0; color: var(--text-dark); }
+            .header .navbar .dropdown-content a:hover, .header .navbar .dropdown-content a.active {
+                color: var(--primary-color); background-color:transparent;
+            }
+
+
+            .about .row { flex-direction: column; }
+            .about .row .video { margin-bottom: 3rem; }
+
+            /* Section titles and CTA titles */
+            .section-title, .about-hero-content h3, .footer-column h4 { font-size: 2rem; }
+        }
+
+        @media (max-width: 450px) {
+            html { font-size: 50%; }
+            .contact-info { width: 100%; }
+            .box-container .box h3 {font-size: 3rem;} /* Adjust stats numbers */
+            .service-icon i {font-size: 3rem;}
+            .member img.founder-img {width: 15rem; height: 15rem;}
+        }
+
+    </style>
    <!-- header section starts  -->
 
    <header class="header">
@@ -31,55 +752,23 @@
     <a href="#home">home</a>
     <a href="about.html">about</a>
     
- <div class="dropdown">
-  <a href="#services">services</a>
+<div class="dropdown">
+  <a href="services.html">Services</a>
   <div class="dropdown-content">
-    <a href="buildingConstruction.html">Building Construction</a>
-    <a href="#services">House Renovation</a>
-    <a href="#services">Architecture Design</a>
-    <a href="#services">Material Supply</a>
-    <a href="#services">Construction Consultant</a>
+    <a href="electrical_wiring.html">Electrical Wiring</a>
+    <a href="lighting_installation.html">Lighting Installation</a>
+    <a href="circuit_design.html">Circuit Design</a>
+    <a href="power_backup.html">Power Backup Systems</a>
+    <a href="safety_inspection.html">Safety Inspection & Compliance</a>
   </div>
-</div>
-<script>
-  // Toggle mobile menu visibility
-  document.getElementById('menu-btn').onclick = function () {
-    document.querySelector('.navbar').classList.add('active');
-  };
-
-  document.querySelector('.exit-btn').onclick = function () {
-    document.querySelector('.navbar').classList.remove('active');
-  };
-
-  // Toggle dropdown
-  document.querySelectorAll('.navbar .dropdown > a').forEach(link => {
-    link.addEventListener('click', function (e) {
-      e.preventDefault(); // prevent navigation
-      const dropdown = this.parentElement;
-      dropdown.classList.toggle('active');
-    });
-  });
-</script>
-
-
-
     <div class="dropdown">
-      <a href="projects.html">projects</a>
-      <div class="dropdown-content">
-        <a href="residential.html">Residential</a>
-        <a href="commercial.html">Commercial</a>
-        <a href="#projects">Industrial</a>
-        <a href="#projects">Infrastructure</a>
-      </div>
-    </div>
-
-    <div class="dropdown">
-      <a href="#pricing">pricing</a>
-      <div class="dropdown-content">
-        <a href="#pricing">Basic Plan</a>
-        <a href="#pricing">Premium Plan</a>
-        <a href="#pricing">Ultimate Plan</a>
-      </div>
+        <a href="projects.html">Projects</a>
+        <div class="dropdown-content">
+            <a href="projects.html">Residential</a>
+            <a href="projects.html">Commercial</a>
+            <a href="projects.html">Industrial</a>
+            <a href="projects.html">Government</a>
+        </div>
     </div>
 
     <a href="#contact">contact</a>
@@ -129,8 +818,8 @@
       <div class="info">
          <i class="fas fa-envelope"></i>
          <h3>email address</h3>
-         <p>shaikhanas@gmail.com</p>
-         <p>anasbhai@gmail.com</p>
+         <p>@gmail.com</p>
+         <p>@gmail.com</p>
       </div>
 
       <div class="info">
@@ -616,11 +1305,11 @@
 
    <!-- reviews section ends -->
 
-   <!-- pricing section starts  -->
+   <!--  section starts  -->
 
-   <section class="pricing" id="pricing">
+   <section class="" id="">
 
-      <h1 class="heading"> our pricing </h1>
+      <h1 class="heading"> our  </h1>
 
       <div class="box-container">
 
@@ -635,8 +1324,8 @@
                <p>Maintenance</p>
                <p>12 Hours support</p>
             </div>
-            <!-- Pricing dropdown -->
-            <div class="pricing-dropdown">
+            <!--  dropdown -->
+            <div class="-dropdown">
                <button class="dropdown-btn">Plan Options</button>
                <div class="dropdown-content">
                   <a href="#">View Plan Details</a>
@@ -658,8 +1347,8 @@
                <p>Maintenance</p>
                <p>12 Hours support</p>
             </div>
-            <!-- Pricing dropdown -->
-            <div class="pricing-dropdown">
+            <!--  dropdown -->
+            <div class="-dropdown">
                <button class="dropdown-btn">Plan Options</button>
                <div class="dropdown-content">
                   <a href="#">View Plan Details</a>
@@ -681,8 +1370,8 @@
                <p>Maintenance</p>
                <p>12 Hours support</p>
             </div>
-            <!-- Pricing dropdown -->
-            <div class="pricing-dropdown">
+            <!--  dropdown -->
+            <div class="-dropdown">
                <button class="dropdown-btn">Plan Options</button>
                <div class="dropdown-content">
                   <a href="#">View Plan Details</a>
@@ -697,7 +1386,7 @@
 
    </section>
 
-   <!-- pricing section ends -->
+   <!--  section ends -->
 
    <!-- contact section starts  -->
 
@@ -793,28 +1482,242 @@
 
    <!-- footer section starts  -->
 
-   <section class="footer">
+<footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-angle-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-angle-right"></i> Services</a></li>
+                    <li><a href="projects.html"><i class="fas fa-angle-right"></i> Projects</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="electrical_wiring.html"><i class="fas fa-bolt"></i> Electrical Wiring</a></li>
+                    <li><a href="lighting_installation.html"><i class="fas fa-lightbulb"></i> Lighting Installation</a></li>
+                    <li><a href="circuit_design.html"><i class="fas fa-project-diagram"></i> Circuit Design</a></li>
+                    <li><a href="power_backup.html"><i class="fas fa-car-battery"></i> Power Backup</a></li>
+                    <li><a href="safety_inspection.html"><i class="fas fa-shield-alt"></i> Safety Inspection</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123-456-7890</a></li>
+                    <li><a href="mailto:info@mosikeelectrical.com"><i class="fas fa-envelope"></i> info@mosikeelectrical.com</a></li>
+                </ul>
+                <p style="color:var(--text-light); font-size:1.4rem; margin:0.8rem 0 0 0; display:flex; align-items:flex-start; gap:7px;"><i class="fas fa-map-marker-alt" style="margin-top:4px;"></i> 123 Electric Ave, Cityville, ST 400104</p>
 
-      <div class="links">
-         <a class="btn" href="#home">home</a>
-         <a class="btn" href="#about">about</a>
-         <a class="btn" href="#services">services</a>
-         <a class="btn" href="#projects">projects</a>
-         <a class="btn" href="#pricing">pricing</a>
-         <a class="btn" href="#contact">contact</a>
-         <a class="btn" href="#blogs">blogs</a>
-      </div>
+                 <h4 style="margin-top:2rem;">Connect With Us</h4>
+                 <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+             <div class="footer-column">
+                <h4>About Mosike</h4>
+                <p>
+                    Mosike Electrical Contractors is dedicated to providing top-tier electrical solutions. Our certified experts ensure safety, efficiency, and reliability for all your electrical needs.
+                </p>
+                <a href="about.html" class="btn" style="margin-top:1.5rem; background: var(--accent-color); color: var(--text-dark) !important; border-color:var(--accent-color);">Learn More</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© <script>document.write(new Date().getFullYear())</script> Mosike Electrical Contractors. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-   </section>
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
 
-   <!-- footer section ends -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init({ duration: 700, once: false, delay: 50 });
 
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+        window.onload = function() {
+            const loaderElement = document.querySelector('.loader');
+            if (loaderElement) {
+                loaderElement.classList.add('fade-out');
+                setTimeout(() => {
+                    if (loaderElement.parentElement) { // Check if still in DOM
+                        loaderElement.style.display = 'none';
+                    }
+                }, 500);
+            }
+        };
 
-   <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+        const progressBar = document.getElementById("progressBar");
+        const backToTopButton = document.getElementById("backToTop");
 
-   <!-- custom js file link  -->
+        const menuBtn = document.getElementById('menu-btn');
+        const navbar = document.querySelector('.header .navbar');
+        const exitBtn = document.getElementById('exit-btn');
+
+        const infoBtn = document.querySelector('#info-btn');
+        const contactInfo = document.querySelector('.contact-info');
+        const closeContactInfo = document.querySelector('#close-contact-info');
+
+        const searchBtn = document.querySelector('#search-btn');
+        const searchForm = document.querySelector('.search-form');
+        const searchBox = document.getElementById('search-box');
+
+        const loginBtn = document.querySelector('#login-btn');
+        const loginForm = document.querySelector('.login-form');
+
+        function scrollProgressAndTopButton() {
+            if(progressBar) {
+                var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            }
+
+            if (backToTopButton) {
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    backToTopButton.classList.add("visible");
+                } else {
+                    backToTopButton.classList.remove("visible");
+                }
+            }
+        }
+
+        function closeAllPopups() {
+            if(navbar) navbar.classList.remove('active');
+            if(contactInfo) contactInfo.classList.remove('active');
+            if(searchForm) searchForm.classList.remove('active');
+            if(loginForm) loginForm.classList.remove('active');
+        }
+        
+        window.onscroll = () => {
+            scrollProgressAndTopButton();
+            closeAllPopups();
+        };
+
+        if(backToTopButton){
+            backToTopButton.onclick = () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+        }
+
+        function setupToggle(btn, element, focusElement = null) {
+            if (btn && element) {
+                btn.onclick = (e) => {
+                    e.stopPropagation(); // Prevent immediate closing by document click
+                    const isActive = element.classList.contains('active');
+                    closeAllPopups(); // Close others before toggling current
+                    if (!isActive) { // If it was closed, now open it
+                        element.classList.add('active');
+                        if (focusElement) focusElement.focus();
+                    }
+                    // If it was active, closeAllPopups already handled it.
+                    // To make it a pure toggle even if it was the only one open:
+                    // element.classList.toggle('active'); 
+                    // if (element.classList.contains('active') && focusElement) focusElement.focus();
+                };
+            }
+        }
+
+        setupToggle(menuBtn, navbar);
+        if (exitBtn && navbar) { exitBtn.onclick = () => navbar.classList.remove('active'); }
+        
+        setupToggle(infoBtn, contactInfo);
+        if (closeContactInfo && contactInfo) { closeContactInfo.onclick = () => contactInfo.classList.remove('active'); }
+
+        setupToggle(searchBtn, searchForm, searchBox);
+        setupToggle(loginBtn, loginForm);
+
+        document.querySelectorAll('.dropdown > a.dropdown-toggle').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); // Prevent navigation for parent dropdown link
+                e.stopPropagation();
+                const dropdown = this.parentElement;
+                const isActive = dropdown.classList.contains('active');
+                
+                document.querySelectorAll('.dropdown.active').forEach(openDropdown => {
+                    openDropdown.classList.remove('active');
+                });
+
+                if (!isActive) {
+                    dropdown.classList.add('active');
+                }
+            });
+        });
+
+        document.addEventListener('click', function(e) {
+            let clickedOnToggleWidget = false;
+            if (navbar && navbar.contains(e.target)) clickedOnToggleWidget = true;
+            if (contactInfo && contactInfo.contains(e.target)) clickedOnToggleWidget = true;
+            if (searchForm && searchForm.contains(e.target)) clickedOnToggleWidget = true;
+            if (loginForm && loginForm.contains(e.target)) clickedOnToggleWidget = true;
+            
+            // Check if click was on one of the toggle buttons themselves
+            if (e.target === menuBtn || (menuBtn && menuBtn.contains(e.target))) clickedOnToggleWidget = true;
+            if (e.target === infoBtn || (infoBtn && infoBtn.contains(e.target))) clickedOnToggleWidget = true;
+            if (e.target === searchBtn || (searchBtn && searchBtn.contains(e.target))) clickedOnToggleWidget = true;
+            if (e.target === loginBtn || (loginBtn && loginBtn.contains(e.target))) clickedOnToggleWidget = true;
+
+
+            if (!clickedOnToggleWidget) {
+                closeAllPopups();
+            }
+            
+            document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
+
+        const counters = document.querySelectorAll('.box-container .box h3');
+        const counterSpeed = 150;
+
+        const animateCounters = (counter) => {
+            const target = +counter.dataset.target;
+            let count = 0;
+            const increment = target / counterSpeed;
+            const updateCount = () => {
+                if (count < target) {
+                    count += increment;
+                    counter.innerText = Math.ceil(count) + '+';
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counter.innerText = target + '+';
+                }
+            };
+            updateCount();
+        };
+
+        if (typeof IntersectionObserver !== 'undefined') {
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const h3 = entry.target.querySelector('h3');
+                        if(h3 && h3.dataset.target && !h3.classList.contains('animated')){
+                            animateCounters(h3);
+                            h3.classList.add('animated'); // Prevent re-animating
+                           // observer.unobserve(entry.target); // Keep observing if you want re-animation on scroll up then down
+                        }
+                    }
+                });
+            }, { threshold: 0.4 }); // Trigger when 40% visible
+
+            document.querySelectorAll('.box-container .box').forEach(box => {
+                counterObserver.observe(box);
+            });
+        } else { // Fallback for older browsers
+            counters.forEach(counter => { if(counter.dataset.target) animateCounters(counter); });
+        }
+
+    </script>
    <script src="script.js"></script>
+   
 
    <!-- Add this script for dropdown functionality -->
    

@@ -4,459 +4,927 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Mosike Electrical Contractors</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="electrical-styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <style>
+        :root {
+            --primary-color: #db3434; /* Mosike Red */
+            --secondary-color: #ff6b6b; /* Lighter Red */
+            --accent-color: #f1c40f;   /* Yellow Accent */
+            --text-dark: #2c3e50;      /* Dark Blue/Grey for Text */
+            --text-light: #ecf0f1;     /* Light Grey/White for Text on Dark BG */
+            --bg-light: #f8f9fa;       /* Very Light Grey BG */
+            --bg-dark: #34495e;        /* Dark Blue/Grey BG */
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+            /* font-size: 10px; -- Removed, using browser default and adjusting rems directly */
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            width: 100%; height: 5px; background-color: transparent;
+            position: fixed; top: 0; left: 0; z-index: 2000;
+        }
+        .progress-bar {
+            height: 5px; background-color: var(--primary-color); width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed; top: 0; left: 0; height: 100%; width: 100%;
+            z-index: 10000; background: #fff; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        .loader.fade-out { opacity: 0; visibility: hidden; }
+        .electric-loader {
+            width: 80px; height: 80px; border: 5px solid var(--primary-color);
+            border-top-color: var(--secondary-color); border-radius: 50%;
+            animation: spin 1s linear infinite, pulsate 2s ease-in-out infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulsate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Header */
+        .header {
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem 9%;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header .logo img { height: 4.5rem; transition: var(--transition); }
+        .header .logo img:hover { transform: scale(1.05); }
+
+        .header .navbar { display: flex; gap: 1.8rem; align-items: center; }
+        .header .navbar a {
+            font-size: 1.5rem; color: var(--text-dark); text-transform: capitalize;
+            text-decoration: none; padding: 0.5rem 0; position: relative;
+        }
+        .header .navbar a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 2px; background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .header .navbar a:hover::after, .header .navbar a.active::after { width: 100%; }
+        .header .navbar a:hover, .header .navbar a.active { color: var(--primary-color); }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff;
+            min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1; border-radius: 0.5rem; padding: 0.5rem 0;
+            border-top: 3px solid var(--primary-color);
+        }
+        .dropdown-content a {
+            color: var(--text-dark); padding: 1rem 1.5rem;
+            text-decoration: none; display: block; font-size: 1.4rem;
+            text-transform: capitalize;
+        }
+        .dropdown-content a::after { display: none; }
+        .dropdown-content a:hover, .dropdown-content a.active {
+            background-color: var(--bg-light); color: var(--primary-color);
+        }
+        .dropdown.active .dropdown-content { display: block; }
+        
+        /* Exit button within mobile navbar */
+        .header .navbar .exit-btn {
+            display: none; /* Hidden by default, shown in mobile navbar */
+            font-size: 2.5rem; color: var(--text-dark);
+            cursor: pointer; position: absolute; top: 1.5rem; right: 1.5rem;
+        }
+
+    .header .icons div {
+        height: 4rem;
+        width: 4rem;
+        line-height: 4rem;
+        font-size: 1.6rem;
+        background: var(--bg-light);
+        color: var(--text-dark);
+        cursor: pointer;
+        text-align: center;
+        margin-left: 0.4rem;
+        border-radius: 50%;
+        transition: var(--transition);
+        display: flex;           /* Add this */
+        align-items: center;     /* Add this */
+        justify-content: center; /* Add this */
+    }
+        .header .icons div:hover {
+            background: var(--primary-color); color: white; transform: scale(1.1);
+        }
+        
+        /* Specifically hide #menu-btn on desktop */
+        .header .icons #menu-btn {
+            display: none;
+        }
+
+        /* Section Styling */
+        section { padding: 3.5rem 9%; }
+        .section-title {
+            text-align: center; font-size: 2.2rem;
+            margin-bottom: 1rem; color: var(--text-dark); text-transform: capitalize;
+        }
+        .section-description {
+            text-align: center; max-width: 750px;
+            margin: 0 auto 2.5rem; color: #666;
+            font-size: 1.05rem; line-height: 1.6;
+        }
+
+        /* About Section specific */
+        .about-hero-content { padding: 3rem 0; text-align: center; }
+        .about-hero-content h3 {
+            font-size: 2.4rem; color: var(--text-dark); margin-bottom: 1.2rem;
+        }
+        .about-hero-content p {
+            font-size: 1.1rem; color: #555; line-height: 1.7;
+            max-width: 650px; margin: 0 auto 1.8rem auto;
+        }
+
+        .about .row { display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center; margin-top: 2.5rem; }
+        .about .row .video { flex: 1 1 40rem; }
+        .about .row .video video {
+            width: 100%; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .about .row .content { flex: 1 1 40rem; }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.7rem 1.6rem; background: var(--primary-color); color: white !important;
+            border-radius: 50px; text-decoration: none; font-weight: 600;
+            transition: var(--transition); border: 2px solid var(--primary-color);
+            cursor: pointer; display: inline-flex; align-items: center;
+            justify-content: center; gap: 0.5rem;
+            font-size: 1.45rem; line-height: 1.4;
+        }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important;
+        }
+        .btn:hover {
+            background: var(--secondary-color); border-color: var(--secondary-color);
+            color: white !important; transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        .btn-outline:hover { background: var(--primary-color); color: white !important; }
+
+        /* Stats Boxes */
+        .box-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+            gap: 2rem; margin-top: 4rem;
+        }
+        .box-container .box {
+            background: white; border-radius: 12px; padding: 2rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); text-align: center;
+            transition: var(--transition);
+        }
+        .box-container .box:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        .box-container .box h3 {
+            font-size: 3rem; color: var(--primary-color); margin-bottom: 0.5rem;
+        }
+        .box-container .box p { font-size: 1.5rem; color: #666; padding-top: 0; line-height: 1.5; }
+
+        /* Service Icons Section */
+        .service-icons-section {
+            padding: 3.5rem 9%; background-color: var(--bg-light); margin-top: 4rem;
+        }
+        .service-icons {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+            gap: 2rem; margin-top: 2.5rem;
+        }
+        .service-icon {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: var(--transition);
+            text-align: center; padding: 1.8rem;
+        }
+        .service-icon:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        .service-icon i {
+            font-size: 3rem; color: var(--primary-color); margin-bottom: 1.2rem; display: block;
+        }
+        .service-icon h4 { font-size: 1.6rem; color: var(--text-dark); margin:0; }
+
+        /* Founder & Team Section */
+        .founder-section, .team-section-wrapper { padding: 3.5rem 9%; }
+        .founder-section .member, .team-members .member {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: var(--transition);
+            text-align: center; padding: 0;
+            margin: 2rem auto; max-width: 32rem;
+        }
+        .founder-section .member:hover, .team-members .member:hover {
+            transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+        }
+        .member img.founder-img, .member img.team-img {
+            width: 13rem; height: 13rem; object-fit: cover; border-radius: 50%;
+            margin-bottom: 1.2rem; border: 4px solid var(--primary-color); padding: 4px;
+            background-color: white; display: block; margin-left: auto; margin-right: auto;
+        }
+        .founder-section .member img.founder-img { width: 17rem; height: 17rem; }
+
+        .member-info { padding: 1.2rem 1.8rem 1.8rem 1.8rem; }
+        .member-info h3 { font-size: 1.8rem; color: var(--text-dark); margin-bottom: 0.4rem; }
+        .member-info .member-role {
+            color: var(--primary-color); font-weight: 600; margin-bottom: 0.8rem;
+            display: block; font-size: 1.4rem;
+        }
+        .member-info p { font-size: 1.4rem; color: #666; line-height: 1.6; margin-bottom: 0; }
+
+        .team-members {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(26rem, 1fr));
+            gap: 2.5rem; margin-top: 2.5rem;
+        }
+        .team-members .member { max-width: none; margin: 0; }
+
+        /* Testimonials Section */
+        .testimonials-section { padding: 3.5rem 9%; background-color: var(--bg-light); }
+        .testimonials-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: 2.5rem; margin-top: 2.5rem;
+        }
+        .testimonial {
+            background: white; padding: 2.2rem; border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); display: flex;
+            flex-direction: column; justify-content: space-between; transition: var(--transition);
+        }
+        .testimonial:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        .testimonial p {
+            font-size: 1.45rem; color: #555; line-height: 1.7;
+            margin-bottom: 1.8rem; font-style: italic; flex-grow: 1;
+        }
+        .testimonial p::before {
+            content: "\f10d"; font-family: "Font Awesome 5 Free"; font-weight: 900;
+            color: var(--primary-color); font-size: 1.8rem; margin-right: 0.5rem;
+        }
+        .testimonial strong {
+            font-size: 1.5rem; color: var(--text-dark); display: block;
+            text-align: right; font-weight: 600;
+        }
+        .testimonial strong::before { content: "— "; }
+
+        /* Search Form & Login Form */
+        .search-form, .login-form {
+            position: fixed; background: #fff;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+            padding: 2rem; border-radius: .5rem; z-index: 1001;
+            opacity: 0; visibility: hidden;
+            /* Corrected transition for visibility */
+            transition: top 0.35s ease, opacity 0.35s ease, visibility 0s linear 0.35s;
+        }
+        .search-form.active, .login-form.active {
+            opacity: 1; visibility: visible;
+            transition: top 0.35s ease, opacity 0.35s ease, visibility 0s linear 0s;
+        }
+
+        .search-form {
+            left: 0; right: 0; top: -100%; /* Start fully off-screen */
+            display: flex; align-items: center;
+        }
+        .login-form {
+            left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 38rem; text-align: center;
+            top: -100%; /* Start fully off-screen */
+        }
+        .search-form.active { top: 70px; /* Adjust based on final header height */ }
+        .login-form.active { top: 75px; /* Adjust based on final header height */ }
+
+
+        .search-form #search-box, .login-form .box {
+            width: 100%; padding: 1rem; font-size: 1.5rem;
+            color: var(--text-dark); margin: .7rem 0;
+            border: 1px solid #ccc; border-radius: .5rem;
+        }
+        .search-form #search-box:focus, .login-form .box:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(219, 52, 52, 0.25);
+        }
+        .login-form h3 {
+            font-size: 2rem; color: var(--text-dark);
+            text-transform: capitalize; margin-bottom: 1.2rem;
+        }
+
+        /* Contact Info Sidebar */
+        .contact-info {
+            position: fixed; top: 0; right: -100%; width: 33rem;
+            height: 100vh; background: #fff; padding: 2rem;
+            box-shadow: -0.5rem 0 1rem rgba(0,0,0,0.1); z-index: 1002;
+            transition: right 0.3s linear; overflow-y: auto;
+            opacity: 0; visibility: hidden;
+             /* Corrected transition for visibility */
+            transition: right 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
+        }
+        .contact-info.active { 
+            right: 0; 
+            opacity: 1; visibility: visible;
+            transition: right 0.3s ease, opacity 0.3s ease, visibility 0s linear 0s;
+        }
+        .contact-info #close-contact-info {
+            font-size: 2.2rem; color: var(--text-dark); cursor: pointer;
+            position: absolute; top: 1.2rem; right: 1.2rem;
+        }
+        .contact-info #close-contact-info:hover { color: var(--primary-color); }
+        .contact-info .info { padding: 1.2rem 0; border-bottom: 1px solid #eee; }
+        .contact-info .info i { font-size: 1.8rem; color: var(--primary-color); margin-right: 0.8rem; }
+        .contact-info .info h3 { font-size: 1.8rem; color: var(--text-dark); padding-bottom: .4rem; }
+        .contact-info .info p { font-size: 1.4rem; color: #666; line-height: 1.5; }
+        .contact-info .share { padding-top: 1.8rem; text-align: center; }
+        .contact-info .share a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; background: rgba(219, 52, 52, 0.1);
+            color: var(--primary-color); margin: 0 .3rem; border-radius: 50%;
+            text-decoration: none; font-size: 1.7rem; transition: var(--transition);
+        }
+        .contact-info .share a:hover {
+            background: var(--primary-color); color: white; transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-dark); color: var(--text-light);
+            padding: 3.5rem 9% 1.8rem; margin-top: 0;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2.5rem; margin-bottom: 2.5rem;
+        }
+        .footer-column h4 {
+            font-size: 1.4rem; margin-bottom: 1.2rem;
+            color: var(--accent-color); position: relative; padding-bottom: 8px;
+        }
+        .footer-column h4::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 40px; height: 2px; background: var(--primary-color); border-radius: 2px;
+        }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a, .footer-column p {
+            color: var(--text-light); text-decoration: none; transition: var(--transition);
+            display: flex; align-items: center; gap: 7px; font-size:1.4rem;
+            opacity: 0.9;
+        }
+         .footer-column p {line-height: 1.6;}
+        .footer-links a:hover { color: var(--primary-color); transform: translateX(4px); opacity: 1;}
+        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light); border-radius: 50%; transition: var(--transition);
+            text-decoration: none; font-size: 1.7rem;
+        }
+        .social-links a:hover {
+            transform: translateY(-4px) scale(1.1); background: var(--primary-color); color: white;
+        }
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.8rem;
+            text-align: center; font-size: 1.3rem; opacity: 0.7;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed; bottom: 1.8rem; right: 1.8rem;
+            background: var(--primary-color); color: white;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0; visibility: hidden;
+            transition: var(--transition); box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999; font-size: 1.8rem;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--secondary-color); transform: translateY(-4px); }
+
+        /* Responsive styles */
+        @media (max-width: 991px) { /* Tablet */
+            html { font-size: 55%; }
+            .header { padding: 1.2rem 2rem; } /* Adjusted header padding */
+            .header .logo img { height: 3.8rem; } /* Smaller logo on tablet */
+            
+            .header .icons #menu-btn { /* Show menu button on tablet and mobile */
+                display: inline-flex; /* Or block, matching other icons if they were there */
+                /* visibility: visible; /* Ensure it's visible */
+            }
+            .header .navbar { /* This becomes the slide-out menu */
+                position: fixed; top: 0; left: -100%; width: 28rem;
+                height: 100vh; background: #fff; flex-direction: column;
+                align-items: flex-start; padding: 4rem 2rem;
+                z-index: 1001; transition: left 0.3s linear;
+                box-shadow: 0.5rem 0 1rem rgba(0,0,0,0.1);
+            }
+            .header .navbar.active { left: 0; }
+            .header .navbar .exit-btn { display: block; } /* Show exit button in mobile menu */
+            .header .navbar a, .header .navbar .dropdown > a { /* Style for links in mobile menu */
+                display: block; margin: 1.2rem 0; font-size: 1.8rem; padding: 0.8rem 0;
+            }
+            .header .navbar .dropdown-content { /* Mobile dropdown style */
+                position: static; background-color: transparent; box-shadow: none;
+                padding-left: 1.5rem; border-top: none;
+            }
+
+            section, .service-icons-section, .founder-section, .team-section-wrapper, .testimonials-section, .footer {
+                padding: 2.5rem 2rem; /* Adjusted section padding for tablet */
+             }
+            .search-form.active { top: 60px; }
+            .login-form.active { top: 65px; }
+        }
+
+        @media (max-width: 768px) { /* Mobile Landscape / Large Mobile */
+            /* html font-size remains 55% from above */
+            /* #menu-btn is already visible from 991px rule */
+            /* .header .navbar .exit-btn is already visible from 991px rule */
+            .about .row { flex-direction: column; }
+            .about .row .video { margin-bottom: 2.5rem; }
+        }
+
+        @media (max-width: 480px) { /* Small Mobile */
+            html { font-size: 50%; }
+            .contact-info { width: 100%; }
+            .box-container .box h3 {font-size: 2.5rem;} /* Further reduce for small screens */
+            .service-icon i {font-size: 2.5rem;}
+            .member img.founder-img {width: 13rem; height: 13rem;}
+            .member img.team-img {width: 11rem; height: 11rem;}
+            .search-form.active, .login-form.active { padding: 1.5rem; }
+            .search-form.active { top: 50px; } /* Adjust for even smaller header */
+            .login-form.active { top: 55px; }
+        }
+
+    </style>
+</head>
 <body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <div class="loader">
         <div class="electric-loader"></div>
     </div>
-    
+
     <header class="header">
-        <a href="index.html" class="logo"><img src="_images/logo.jpg " width="100" height="100" alt="Logo" class="logo"></a>
+        <a href="index.html" class="logo">
+            <img src="_images/logo.jpg" alt="Mosike Electrical Contractors Logo" class="logo-img">
+        </a>
 
-        <nav class="navbar">
-            <div class="exit-btn" id="exit-btn">&times;</div>
+        <nav class="navbar"> <div class="exit-btn" id="exit-btn"></div>
             <a href="index.html">home</a>
-            <a href="about.html">about</a>
+            <a href="about.html" class="active">about</a>
 
             <div class="dropdown">
-                <a href="#services" class="dropdown-toggle">services</a>
+                <a href="services.html" class="dropdown-toggle">Services</a>
                 <div class="dropdown-content">
-                    <a href="#services">Residential Electrical</a>
-                    <a href="#services">Commercial Electrical</a>
-                    <a href="#services">Industrial Solutions</a>
-                    <a href="#services">Electrical Maintenance</a>
-                    <a href="#services">Energy Efficiency</a>
+                    <a href="electrical_wiring.html">Electrical Wiring</a>
+                    <a href="lighting_installation.html">Lighting Installation</a>
+                    <a href="circuit_design.html">Circuit Design</a>
+                    <a href="power_backup.html">Power Backup Systems</a>
+                    <a href="safety_inspection.html">Safety Inspection & Compliance</a>
                 </div>
             </div>
+    <div class="dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="dropdown-content">
+            <a href="projects.html">Residential</a>
+            <a href="projects.html">Commercial</a>
+            <a href="projects.html">Industrial</a>
+            <a href="projects.html">Government</a>
+        </div>
+    </div>
 
-            <div class="dropdown">
-                <a href="projects.html" class="dropdown-toggle">projects</a>
-                <div class="dropdown-content">
-                    <a href="#projects">Residential</a>
-                    <a href="#projects">Commercial</a>
-                    <a href="#projects">Industrial</a>
-                    <a href="#projects">Government</a>
-                </div>
+       
             </div>
-
-            <div class="dropdown">
-                <a href="#pricing" class="dropdown-toggle">pricing</a>
-                <div class="dropdown-content">
-                    <a href="#pricing">Service Calls</a>
-                    <a href="#pricing">Project Estimates</a>
-                    <a href="#pricing">Maintenance Plans</a>
-                </div>
-            </div>
-
-            <a href="#contact">contact</a>
-            <a href="#blogs">blogs</a>
+            <a href="contact.html">contact</a>
         </nav>
 
         <div class="icons">
             <div id="menu-btn" class="fas fa-bars"></div>
             <div id="info-btn" class="fas fa-info-circle" title="Click to See Contact Info"></div>
             <div id="search-btn" class="fas fa-search" title="Click to See Search Box"></div>
-            <div id="login-btn" class="fas fa-user" title="Click to See Login Form"></div>
-           
+         
         </div>
 
         <form action="" class="search-form">
-            <input type="search" name="" placeholder="search here..." id="search-box">
+            <input type="search" placeholder="Search here..." id="search-box">
             <label for="search-box" class="fas fa-search"></label>
         </form>
 
-        <form action="" class="login-form">
-            <h3>login form</h3>
-            <input type="email" placeholder="enter your email" class="box">
-            <input type="password" placeholder="enter your password" class="box">
-            <div class="flex">
-                <input type="checkbox" name="" id="remember-me">
-                <label for="remember-me">remember me</label>
-                <a href="#">forgot password?</a>
-            </div>
-            <input type="submit" value="login now" class="btn">
-            <p>don't have an account <a href="#">create one!</a></p>
-        </form>
+      
     </header>
 
-    <h1>About Mosike Electrical Contractors</h1>
+    <div class="contact-info">
+        <div id="close-contact-info" class="fas fa-times"></div>
+        <div class="info">
+            <i class="fas fa-phone"></i>
+            <h3>Phone Number</h3>
+            <p>+123-456-7890</p>
+            <p>+111-222-3333</p>
+        </div>
+        <div class="info">
+            <i class="fas fa-envelope"></i>
+            <h3>Email Address</h3>
+            <p>info@mosikeelectrical.com</p>
+            <p>support@mosikeelectrical.com</p>
+        </div>
+        <div class="info">
+            <i class="fas fa-map-marker-alt"></i>
+            <h3>Office Address</h3>
+            <p>123 Electric Avenue, Cityville, ST 400104</p>
+             <a href="https://maps.google.com" target="_blank" class="btn" style="margin-top: 10px;">
+                <i class="fas fa-map-marked-alt"></i> Get Directions
+            </a>
+        </div>
+        <div class="share">
+            <a href="#" class="fab fa-facebook-f"></a>
+            <a href="#" class="fab fa-twitter"></a>
+            <a href="#" class="fab fa-instagram"></a>
+            <a href="#" class="fab fa-linkedin"></a>
+        </div>
+    </div>
 
-    <div class="exit_btn">✖ Close</div>
-    <h1 class="title">ABOUT US</h1>
-    <br>
-    <br>
-    <h2 id="head1"><strong>Mosike Electrical Contractors</strong></h2>
-<section class="center">
-    <p class="paragraph-info">
-       From Power Distribution to Innovative Solutions
-        <br>
-        Born from a commitment to excellence in electrical engineering and contracting, <strong class="mosike">Mosike Electrical Contractors</strong> has been dedicated to providing reliable electrical solutions since 2010. Our mission is rooted in safety and quality workmanship, where proper electrical systems form the foundation of every modern structure—just as a building requires a solid foundation to withstand the test of time.
-        <br>
-        <br>
-        <br>
-         At <strong class="mosike">Mosike</strong>, we embrace innovative technologies and industry best practices to "energize" your projects, delivering reliable power systems and electrical installations that meet the highest standards.
-        <br>
-        <br>Our commitment to excellence is further amplified with our comprehensive electrical services, offering proven solutions to address <strong class="mosike">Commercial</strong>, <strong class="mosike">Residential</strong>, and <strong class="mosike">Industrial</strong> electrical needs. <br><br> By ensuring <strong class="mosike">code compliance</strong> and promoting <strong class="mosike">energy efficiency</strong>, <strong class="mosike">Mosike Electrical Contractors</strong> delivers solutions that go beyond basic electrical work—supporting <strong class="mosike">sustainable practices</strong>, <strong class="mosike">smart building technology</strong>, and <strong class="mosike">overall electrical system health</strong>.
-        <br>
-        <br>
-        <strong class="mosike">Join us</strong> on this journey of innovation and let our master electricians transform your electrical systems with confidence and expertise.<br>
-    <br>
-    <br>
-    
-    <!-- Service Icons Section -->
-    <div class="service-icons">
-        <div class="service-icon">
-            <i class="fas fa-home"></i>
-            <h4>Residential</h4>
+    <section class="about" id="about">
+        <div data-aos="fade-up">
+            <h1 class="section-title">About Mosike Electrical Contractors</h1>
+            <p class="section-description">Your trusted partner for comprehensive electrical solutions, driven by quality, safety, and customer satisfaction for over 15 years.</p>
         </div>
-        <div class="service-icon">
-            <i class="fas fa-building"></i>
-            <h4>Commercial</h4>
-        </div>
-        <div class="service-icon">
-            <i class="fas fa-industry"></i>
-            <h4>Industrial</h4>
-        </div>
-        <div class="service-icon">
-            <i class="fas fa-tools"></i>
-            <h4>Maintenance</h4>
-        </div>
-    </div>
-    
-    <!-- Counter Section -->
-    <div class="counter-section">
-        <div class="counters">
-            <div class="counter">
-                <div class="counter-value" data-count="500">0</div>
-                <div class="counter-title">Projects Completed</div>
+
+        <div class="row" style="margin-top:1rem;">
+            <div class="video" data-aos="fade-right" data-aos-delay="100">
+                <video src="_images/about-vid.mp4" loop muted autoplay playsinline></video>
             </div>
-            <div class="counter">
-                <div class="counter-value" data-count="15">0</div>
-                <div class="counter-title">Years Experience</div>
-            </div>
-            <div class="counter">
-                <div class="counter-value" data-count="50">0</div>
-                <div class="counter-title">Team Members</div>
-            </div>
-            <div class="counter">
-                <div class="counter-value" data-count="98">0</div>
-                <div class="counter-title">Client Satisfaction %</div>
+            <div class="content about-hero-content" data-aos="fade-left" data-aos-delay="200">
+                <h3>We Will Provide You The Best Work Which You Dreamt For!</h3>
+                <p>Mosike Electrical Contractors has been delivering exceptional electrical services for over 15 years. Our team of certified electricians is committed to quality, safety, and customer satisfaction. We take pride in our attention to detail and our ability to handle projects of any size with professionalism and expertise.</p>
+                <a href="#services" class="btn">Our Services <i class="fas fa-chevron-right"></i></a>
             </div>
         </div>
-    </div>
-    
-    <h1 class="title">The Founder</h1>
-    <img class="founder" src="images/founder.png" alt="Founder">
-    <p class="paragraph-info">
-        <h3 class="title2">James Mosike</h3>
-        James Mosike is the founder of Mosike Electrical Contractors. He is a master electrician with over 20 years of experience in the electrical industry. James is passionate about electrical safety and quality workmanship and is committed to providing high-quality, reliable electrical services to residential, commercial, and industrial clients.</p>
-    <h2 class="title">Our Team</h2>
-    <div class="team-members">
-        <div class="member">
-            <img class="founder" src="images/member1.jpg" alt="Member 1">
-            <h3 class="title2">Michael Richards</h3>
-            <p>Michael is our commercial projects manager. He is dedicated to ensuring all commercial electrical installations meet strict codes and deadlines. Michael specializes in complex electrical systems for office buildings, retail spaces, and industrial facilities.</p>
+
+        <div class="box-container" data-aos="fade-up" data-aos-delay="100">
+            <div class="box">
+                <h3 data-target="15">0+</h3>
+                <p>Years of Experience</p>
+            </div>
+            <div class="box">
+                <h3 data-target="1500">0+</h3>
+                <p>Projects Completed</p>
+            </div>
+            <div class="box">
+                <h3 data-target="790">0+</h3>
+                <p>Satisfied Clients</p>
+            </div>
+            <div class="box">
+                <h3 data-target="50">0+</h3>
+                <p>Active Workers</p>
+            </div>
         </div>
-        <div class="member">
-            <img src="images/member2.jpg" alt="Member 2" class="founder">
-            <h3 class="title2">Sarah Johnson</h3>
-            <p>Sarah is our residential services manager. She is responsible for coordinating residential electrical installations and repairs. Sarah is passionate about helping homeowners create safe, efficient electrical systems for their homes.</p>
-        </div>  
-        <div class="member">
-            <img src="images/member3.jpg" alt="Member 3" class="founder">
-            <h3 class="title2">David Martinez</h3>
-            <p>David is our industrial systems specialist. He is responsible for managing our industrial electrical projects. David specializes in high-voltage systems, control wiring, and automation solutions for manufacturing and industrial clients.</p>
-        </div>
-    </div>
     </section>
 
-    <section class="center">
-    <h2 class="title">Testimonials</h2>
-    <div class="testimonials">
-        <div class="testimonial">
-            <p>"Mosike Electrical Contractors completely rewired our 1950s home. Their team was professional, thorough, and kept us informed throughout the entire process. They identified several safety issues that previous contractors had missed. I feel much safer knowing our electrical system has been properly upgraded."</p>
-            <p>- Robert M.</p>
+    <section class="service-icons-section" data-aos="fade-up">
+        <h2 class="section-title">Our Core Service Areas</h2>
+        <p class="section-description">Specializing in a wide range of electrical services to meet diverse needs.</p>
+        <div class="service-icons">
+            <div class="service-icon" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-home"></i>
+                <h4>Residential</h4>
+            </div>
+            <div class="service-icon" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-building"></i>
+                <h4>Commercial</h4>
+            </div>
+            <div class="service-icon" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-industry"></i>
+                <h4>Industrial</h4>
+            </div>
+            <div class="service-icon" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-tools"></i>
+                <h4>Maintenance</h4>
+            </div>
         </div>
-    </div>
-  
-    <div class="animate-text">
-        <div class="testimonial">
-            <p>"Our manufacturing facility needed a complete electrical overhaul while maintaining operations. The Mosike team developed a phased implementation plan that allowed us to continue production with minimal disruption. Their knowledge of industrial electrical systems is impressive."</p>
-            <p>- Victoria Industries</p>
-        </div>
-        <div class="testimonial">
-            <p>"As a property developer, I've worked with many electrical contractors, but Mosike consistently delivers the highest quality work. Their ability to handle complex commercial projects while staying on schedule and within budget sets them apart from competitors."</p>
-            <p>- David Williams</p>
-        </div>
-    </div>
-    
-    <div class="electric-cta">
-        Request a Free Consultation
-    </div>
-
-    <h2 class="title">Press Releases</h2>
-    <div class="press-releases">
-        <div class="press-release">
-            <h3>Mosike Electrical Contractors Expands Commercial Services Division</h3>
-            <p>Mosike Electrical Contractors is proud to announce the expansion of its commercial services division, featuring advanced capabilities in smart building technology and energy management systems.</p>
-            <p>Date: March 10, 2023</p>
-        </div>
-        <div class="press-release">
-            <h3>Mosike Electrical Contractors Partners with Local Technical College for Apprenticeship Program</h3>
-            <p>Mosike Electrical Contractors is excited to announce its partnership with Regional Technical College to offer apprenticeship opportunities for aspiring electricians, helping to develop the next generation of skilled electrical professionals.</p>
-            <p>Date: February 20, 2023</p>
-        </div>
-    </div>
-    
-    <h2 class="title">Contact us</h2>
-    <div class="location">
-        <p>Phone: 074 431 0384</p>
-        <p>Email: <a href="mailto:info@mosikeelectrical.com">info@mosikeelectrical.com</a></p>
-    </div>
-</div>
-    <h2 class="title">Social Media</h2>
-    <div class="social-media">
-        <a href="https://www.facebook.com/MosikeElectrical/"><img src="images/fb.png" alt="Facebook"></a>
-        <a href="https://www.instagram.com/mosikeelectrical/"><img src="images/instagram.png" alt="Instagram"></a>
-    </div>
     </section>
-        <!-- Hidden input for form submission confirmation -->
-         <input type="hidden" name="form-submitted" value="true">
-         <input type="hidden" name="page" value="about.html">
-         <input type="hidden" name="redirect-url" value="thank-you.html">
-         <input type="hidden" name="subject" value="New Message from About Us Page">
-         <input type="hidden" name="sender-email" value="info@mosikeelectrical.com">
-         <input type="hidden" name="recipient-emails" value="customer@mosikeelectrical.com, support@mosikeelectrical.com">
-         <input type="hidden" name="reply-to-email" value="info@mosikeelectrical.com">
-         <input type="hidden" name="template" value="contact-form">
-         <input type="hidden" name="success-message" value="Thank you for your message! We will get back to you shortly.">
-    </form>
-</section>
 
+    <section class="founder-section" id="founder" data-aos="fade-up">
+        <h2 class="section-title">Meet Our Founder</h2>
+        <div class="member" data-aos="fade-up" data-aos-delay="100">
+            <img src="_images/memberPicture.png" alt="James Mosike, Founder" class="founder-img">
+            <div class="member-info">
+                <h3>James Mosike</h3>
+                <span class="member-role">Founder & Master Electrician</span>
+                <p>James Mosike is the visionary behind Mosike Electrical Contractors. With over 20 years in the electrical industry, his passion for safety, quality, and innovation drives our commitment to excellence in every project.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section-wrapper" data-aos="fade-up">
+        <h2 class="section-title">Our Expert Team</h2>
+        <p class="section-description">Dedicated professionals ensuring your electrical projects are handled with expertise and care.</p>
+        <div class="team-members">
+            <div class="member" data-aos="fade-up" data-aos-delay="100">
+                <img src="_images/memberPicture.png" alt="Michael Richards" class="team-img">
+                <div class="member-info">
+                    <h3>Michael Richards</h3>
+                    <span class="member-role">Commercial Projects Manager</span>
+                    <p>Michael excels in managing complex commercial installations, ensuring projects meet strict codes and deadlines.</p>
+                </div>
+            </div>
+            <div class="member" data-aos="fade-up" data-aos-delay="200">
+                <img src="_images/memberPicture.png" alt="Sarah Johnson" class="team-img">
+                <div class="member-info">
+                    <h3>Sarah Johnson</h3>
+                     <span class="member-role">Residential Services Manager</span>
+                    <p>Sarah leads our residential services, focusing on efficient, safe home systems and repairs for homeowners.</p>
+                </div>
+            </div>
+            <div class="member" data-aos="fade-up" data-aos-delay="300">
+                <img src="_images/memberPicture.png" alt="David Martinez" class="team-img">
+                <div class="member-info">
+                    <h3>David Martinez</h3>
+                    <span class="member-role">Industrial Systems Specialist</span>
+                    <p>David is our expert in industrial high-voltage systems, control wiring, and automation solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section" data-aos="fade-up">
+        <h2 class="section-title">What Our Clients Say</h2>
+        <p class="section-description">Hear directly from those who've experienced the Mosike difference.</p>
+        <div class="testimonials-grid">
+            <div class="testimonial" data-aos="fade-up" data-aos-delay="100">
+                <p>"Mosike Electrical Contractors completely rewired our 1950s home. Professional, thorough, and identified safety issues others missed. We feel much safer!"</p>
+                <strong>Linda B., Homeowner</strong>
+            </div>
+            <div class="testimonial" data-aos="fade-up" data-aos-delay="200">
+                <p>"James and his team are our go-to electrical experts. Multiple commercial projects delivered with top-quality work, always on schedule. Highly recommend!"</p>
+                <strong>Martin K., Developer</strong>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" data-aos="fade-up">
+        <div class="cta-content">
+            <h2>Ready to Start Your Electrical Project?</h2>
+            <p>Whether it's a new installation, an upgrade, or routine maintenance, our team is here to help. Contact us for a consultation or a quote.</p>
+            <div class="cta-buttons">
+                <a href="tel:+1234567890" class="btn btn-white">
+                    <i class="fas fa-phone"></i> Call Us Now
+                </a>
+                <a href="contact.html" class="btn btn-outline" style="border-color:white; color:white !important;">
+                     <i class="fas fa-envelope"></i> Get a Quote
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-angle-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-angle-right"></i> Services</a></li>
+                    <li><a href="projects.html"><i class="fas fa-angle-right"></i> Projects</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="electrical_wiring.html"><i class="fas fa-bolt"></i> Electrical Wiring</a></li>
+                    <li><a href="lighting_installation.html"><i class="fas fa-lightbulb"></i> Lighting Installation</a></li>
+                    <li><a href="circuit_design.html"><i class="fas fa-project-diagram"></i> Circuit Design</a></li>
+                    <li><a href="power_backup.html"><i class="fas fa-car-battery"></i> Power Backup</a></li>
+                    <li><a href="safety_inspection.html"><i class="fas fa-shield-alt"></i> Safety Inspection</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123-456-7890</a></li>
+                    <li><a href="mailto:info@mosikeelectrical.com"><i class="fas fa-envelope"></i> info@mosikeelectrical.com</a></li>
+                </ul>
+                <p style="color:var(--text-light); font-size:1.4rem; margin:0.8rem 0 0 0; display:flex; align-items:flex-start; gap:7px;"><i class="fas fa-map-marker-alt" style="margin-top:4px;"></i> 123 Electric Ave, Cityville, ST 400104</p>
+
+                 <h4 style="margin-top:2rem;">Connect With Us</h4>
+                 <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+             <div class="footer-column">
+                <h4>About Mosike</h4>
+                <p>
+                    Mosike Electrical Contractors is dedicated to providing top-tier electrical solutions. Our certified experts ensure safety, efficiency, and reliability for all your electrical needs.
+                </p>
+                <a href="about.html" class="btn" style="margin-top:1.5rem; background: var(--accent-color); color: var(--text-dark) !important; border-color:var(--accent-color);">Learn More</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© <script>document.write(new Date().getFullYear())</script> Mosike Electrical Contractors. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
-        const animateText = document.querySelector('.animate-text');
-        
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            const textPosition = animateText.offsetTop;
-        
-            if (scrollPosition > textPosition - window.innerHeight / 2) {
-                animateText.classList.add('show');
+        AOS.init({ duration: 700, once: false, delay: 50 });
+
+        window.onload = function() {
+            const loaderElement = document.querySelector('.loader');
+            if (loaderElement) {
+                loaderElement.classList.add('fade-out');
+                setTimeout(() => {
+                    if (loaderElement.parentElement) {
+                        loaderElement.style.display = 'none';
+                    }
+                }, 500);
             }
-        });
-    </script>
+        };
 
-    <footer>
-    <a href="https://www.facebook.com/MosikeElectrical/"> <img id="fb" src="images/fb.png" alt="facebook" width="17" height="20"></a>
-    <a href="https://www.instagram.com/mosikeelectrical/"><img id="fb" src="images/instagram.png" alt="Instagram" width="17" height ="20"></a>
-    <p class="copyright2"><a href="terms&conditions.html">Terms & Conditions</a></p>
-    <p class="copyright2"><a href="privacyPolicy.html">Privacy Policy</a></p>
-    <p class="copyright2"><a href="accessibility-statement.html">Accessibility Statement</a></p>
-  </footer>
-  <script src="toggle.js"></script>
+        const progressBar = document.getElementById("progressBar");
+        const backToTopButton = document.getElementById("backToTop");
 
-  <!-- Scroll to top button -->
-  <div class="scroll-top">
-    <i class="fas fa-arrow-up"></i>
-  </div>
-
-  <!-- Additional JavaScript -->
-  <script>
-    // Page loader
-    window.addEventListener('load', function() {
-      const loader = document.querySelector('.loader');
-      setTimeout(function() {
-        loader.classList.add('fade-out');
-      }, 1000);
-    });
-    
-    // Counter animation
-    function animateCounters() {
-      const counters = document.querySelectorAll('.counter-value');
-      const speed = 200;
-      
-      counters.forEach(counter => {
-        const target = +counter.getAttribute('data-count');
-        const count = +counter.innerText;
-        const increment = target / speed;
-        
-        if(count < target) {
-          counter.innerText = Math.ceil(count + increment);
-          setTimeout(animateCounters, 1);
-        } else {
-          counter.innerText = target;
-        }
-      });
-    }
-    
-    // Start counter animation when in view
-    const counterSection = document.querySelector('.counter-section');
-    const options = {
-      threshold: 0.5
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-      if(entries[0].isIntersecting) {
-        animateCounters();
-      }
-    }, options);
-    
-    if(counterSection) {
-      observer.observe(counterSection);
-    }
-    
-    // Scroll to top button
-    const scrollTopBtn = document.querySelector('.scroll-top');
-    
-    window.addEventListener('scroll', function() {
-      if(window.pageYOffset > 300) {
-        scrollTopBtn.classList.add('show');
-      } else {
-        scrollTopBtn.classList.remove('show');
-      }
-    });
-    
-    scrollTopBtn.addEventListener('click', function() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-    
-    // Header scroll effect
-    window.addEventListener('scroll', function() {
-      const header = document.querySelector('.header');
-      if(window.pageYOffset > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-  </script>
-
-
-    <section class="about">
-        <ul class="art">
-            <p><strong>Mosike Electrical Contractors</strong> is renowned for providing reliable, high-quality electrical services for every facility type. We offer a wide variety of electrical solutions and custom system designs tailored to suit your needs, from residential homes to commercial buildings, industrial facilities, and infrastructure projects.</p>
-            <li><strong>Customization:</strong> We pride ourselves on accepting custom electrical projects. Whatever your vision for your electrical system—whether it's smart home integration, industrial automation, or energy-efficient solutions—we bring it to life.</li>
-            <br>
-            <li><strong>Safety and Quality:</strong> All our electrical work is performed by licensed professionals with strict adherence to electrical codes, ensuring the safety and reliability of your electrical systems.</li>
-            <br>
-            <li><strong>Free Consultation:</strong> For our new customers, we offer free consultation and estimates within our service area. You'll get expert advice at no extra cost.</li>
-            <br>
-            <li><strong>Customer Support:</strong> Reach out to us anytime for questions or special requests. We are dedicated to offering excellent customer service and ensuring your complete satisfaction.</li>
-        </ul>
-        
-        <section class="artisticExcellence">
-            <h2>Technical Excellence:</h2>
-            <p>At Mosike Electrical, we combine technical expertise with practical solutions to create electrical systems that are as reliable as they are efficient. Our head electrician, <strong>James Mosike</strong>, is an expert in transforming complex requirements into functional electrical systems. Whether it's a sophisticated commercial installation or a residential renovation, we bring professional standards to every project.</p>
-            <img class="sops" src="_images/jamesMosike.jpg" width="400" height="400" alt="James Mosike, Head Electrician">
-        </section>
-
-        <section class="service-summary">
-            <h2 class="artisticExcellence">Our Mission</h2>
-            <p>At Mosike Electrical Contractors, our mission is to deliver electrical solutions that not only meet code requirements but also exceed client expectations. We believe every electrical system should be safe, efficient, and tailored to your specific needs. We work closely with our clients to ensure that every detail is just right, from initial design to final implementation.</p>
-        </section>
-
-        <section class="review">
-            <h2>Customer Reviews</h2>
-            <p>Our customers rave about our reliable service and professional expertise:</p>
-            <blockquote>
-                "Mosike Electrical Contractors made my home renovation project seamless with their expert electrical work. The team was knowledgeable, professional, and completed the job ahead of schedule!" – <em>Emily M.</em>
-            </blockquote>
-            <blockquote>
-                "I've hired Mosike for multiple commercial projects, and they never disappoint! Always reliable, always professional, and always up to code." – <em>John T.</em>
-            </blockquote>
-        </section>
-
-        <section class="contact-info">
-            <h2>Contact Information</h2>
-            <p>Have any questions or project inquiries? Get in touch with us:</p>
-            <div class="contact-info">
-                <p>Phone: +27 74 431 0384</p>
-                <p>Email: info@mosikeelectrical.com</p>
-                <p>Address: Fourways 2190, South Africa</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-      <p>
-       
-     <section class="footer">
-
-      <div class="links">
-         <a class="btn" href="index.html">home</a>
-         <a class="btn" href="#about">about</a>
-         <a class="btn" href="services.html">services</a>
-         <a class="btn" href="projects.html">projects</a>
-         <a class="btn" href="#pricing">pricing</a>
-         <a class="btn" href="#contact">contact</a>
-         <a class="btn" href="#blogs">blogs</a>
-      </div>
-
-   </section>
-
-   <!-- footer section ends -->
-     <script>
-          var theDate=new Date()
-          document.write("&copy; " + theDate.getFullYear())
-          document.write(" - Mosike Electrical Contractors | Last modified: ")
-          var theModifiedDate=new Date(document.lastModified)
-          document.write(theModifiedDate.toDateString())
-        </script>
-        <br>Powered by "Equinox Silverstar" Web Hosting
-    </p>
-      <div class="social-media">
-        <a href="https://www.facebook.com/MosikeElectrical/"><img id="fb" src="_images/fb.png" alt="Facebook" width="17" height="20"></a>
-        <a href="https://www.instagram.com/mosikeelectrical/"><img id="fb" src="_images/instagram.png" alt="Instagram" width="17" height ="20"></a>
-      </div>
-
-    <script>
         const menuBtn = document.getElementById('menu-btn');
+        const navbar = document.querySelector('.header .navbar');
         const exitBtn = document.getElementById('exit-btn');
-        const navbar = document.querySelector('.navbar');
 
-        // Show menu
-        menuBtn.addEventListener('click', () => {
-            navbar.classList.add('active');
-        });
+        const infoBtn = document.getElementById('info-btn');
+        const contactInfo = document.querySelector('.contact-info');
+        const closeContactInfo = document.getElementById('close-contact-info');
 
-        // Hide menu
-        exitBtn.addEventListener('click', () => {
-            navbar.classList.remove('active');
-        });
+        const searchBtn = document.getElementById('search-btn');
+        const searchForm = document.querySelector('.search-form');
+        const searchBox = document.getElementById('search-box');
 
-        // Dropdown click toggling
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                e.preventDefault(); // Prevent link jump
+        const loginBtn = document.getElementById('login-btn');
+        const loginForm = document.querySelector('.login-form');
+
+        function scrollProgressAndTopButton() {
+            if(progressBar) {
+                var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                var scrolled = (winScroll / height) * 100;
+                progressBar.style.width = scrolled + "%";
+            }
+
+            if (backToTopButton) {
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    backToTopButton.classList.add("visible");
+                } else {
+                    backToTopButton.classList.remove("visible");
+                }
+            }
+        }
+
+        function closeAllPopups(exceptThisOne = null) {
+            if(navbar && navbar !== exceptThisOne) navbar.classList.remove('active');
+            if(contactInfo && contactInfo !== exceptThisOne) contactInfo.classList.remove('active');
+            if(searchForm && searchForm !== exceptThisOne) searchForm.classList.remove('active');
+            if(loginForm && loginForm !== exceptThisOne) loginForm.classList.remove('active');
+        }
+        
+        window.onscroll = () => {
+            scrollProgressAndTopButton();
+            closeAllPopups(); // Close all popups on scroll
+        };
+
+        if(backToTopButton){
+            backToTopButton.onclick = () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+        }
+
+        function setupToggle(btn, element, focusElement = null) {
+            if (btn && element) {
+                btn.onclick = (e) => {
+                    e.stopPropagation();
+                    const isActive = element.classList.contains('active');
+                    closeAllPopups(element); // Close others, but not this one yet
+                    element.classList.toggle('active'); // Now toggle this one
+                    if (element.classList.contains('active') && focusElement) {
+                        focusElement.focus();
+                    }
+                };
+            }
+        }
+
+        setupToggle(menuBtn, navbar);
+        if (exitBtn && navbar) { 
+            exitBtn.onclick = (e) => {
+                e.stopPropagation();
+                navbar.classList.remove('active');
+            }; 
+        }
+        
+        setupToggle(infoBtn, contactInfo);
+        if (closeContactInfo && contactInfo) { 
+            closeContactInfo.onclick = (e) => {
+                e.stopPropagation();
+                contactInfo.classList.remove('active');
+            };
+        }
+
+        setupToggle(searchBtn, searchForm, searchBox);
+        setupToggle(loginBtn, loginForm);
+
+        document.querySelectorAll('.dropdown > a.dropdown-toggle').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                e.stopPropagation();
                 const dropdown = this.parentElement;
-
-                // Close other open dropdowns
-                document.querySelectorAll('.dropdown').forEach(d => {
-                    if (d !== dropdown) d.classList.remove('active');
+                const isActive = dropdown.classList.contains('active');
+                
+                document.querySelectorAll('.dropdown.active').forEach(openDropdown => {
+                    if (openDropdown !== dropdown) { // Close other dropdowns
+                       openDropdown.classList.remove('active');
+                    }
                 });
 
-                // Toggle current one
-                dropdown.classList.toggle('active');
+                if (!isActive) {
+                    dropdown.classList.add('active');
+                } else {
+                    dropdown.classList.remove('active'); // Allow closing by clicking again
+                }
             });
         });
 
-        // Auto close dropdown if clicked outside
         document.addEventListener('click', function(e) {
-            const isDropdown = e.target.closest('.dropdown');
-            if (!isDropdown) {
-                document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+            // Close popups if click is outside
+            if (navbar && navbar.classList.contains('active') && !navbar.contains(e.target) && e.target !== menuBtn && !menuBtn.contains(e.target)) {
+                navbar.classList.remove('active');
             }
+            if (contactInfo && contactInfo.classList.contains('active') && !contactInfo.contains(e.target) && e.target !== infoBtn && !infoBtn.contains(e.target)) {
+                contactInfo.classList.remove('active');
+            }
+            if (searchForm && searchForm.classList.contains('active') && !searchForm.contains(e.target) && e.target !== searchBtn && !searchBtn.contains(e.target)) {
+                searchForm.classList.remove('active');
+            }
+            if (loginForm && loginForm.classList.contains('active') && !loginForm.classList.contains(e.target) && e.target !== loginBtn && !loginBtn.contains(e.target)) {
+                loginForm.classList.remove('active');
+            }
+            
+            // Close dropdowns if click is outside
+            document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+                const toggleLink = dropdown.querySelector('.dropdown-toggle');
+                if (!dropdown.contains(e.target) && e.target !== toggleLink) {
+                    dropdown.classList.remove('active');
+                }
+            });
         });
+
+        const counters = document.querySelectorAll('.box-container .box h3');
+        const counterSpeed = 150;
+
+        const animateCounters = (counter) => {
+            const target = +counter.dataset.target;
+            let count = 0;
+            const increment = target / counterSpeed;
+            const updateCount = () => {
+                if (count < target) {
+                    count += increment;
+                    counter.innerText = Math.ceil(count) + '+';
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counter.innerText = target + '+';
+                }
+            };
+            updateCount();
+        };
+
+        if (typeof IntersectionObserver !== 'undefined') {
+            const counterObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const h3 = entry.target.querySelector('h3');
+                        if(h3 && h3.dataset.target && !h3.classList.contains('animated')){
+                            animateCounters(h3);
+                            h3.classList.add('animated');
+                        }
+                    }
+                });
+            }, { threshold: 0.4 });
+
+            document.querySelectorAll('.box-container .box').forEach(box => {
+                counterObserver.observe(box);
+            });
+        } else {
+            counters.forEach(counter => { if(counter.dataset.target) animateCounters(counter); });
+        }
+
     </script>
 </body>
 </html>

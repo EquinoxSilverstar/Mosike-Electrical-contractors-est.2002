@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Safety Inspection | Mosike Electrical Contractors</title>
+
+```
+<!-- Stylesheets -->
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+<style>
+    :root {
+        --primary-color: #db3434;
+        --secondary-color: #ff6b6b;
+        --accent-color: #f1c40f;
+        --text-dark: #2c3e50;
+        --text-light: #ecf0f1;
+        --bg-light: #f8f9fa;
+        --bg-dark: #34495e;
+        --transition: all 0.3s ease;
+    }
+
+    body {
+        scroll-behavior: smooth;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Enhanced Header */
+    .header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+     /* Header */
+        .header {
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem 9%; /* Slightly reduced padding for a tighter header */
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header .logo img { height: 4.5rem; transition: var(--transition); } /* Reduced logo size */
+        .header .logo img:hover { transform: scale(1.05); }
+
+        .header .navbar { display: flex; gap: 1.8rem; align-items: center; } /* Reduced gap */
+        .header .navbar a {
+            font-size: 1.5rem; /* Reduced navbar font size */
+            color: var(--text-dark); text-transform: capitalize; text-decoration: none;
+            padding: 0.5rem 0; position: relative;
+        }
+        .header .navbar a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 2px; background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .header .navbar a:hover::after, .header .navbar a.active::after { width: 100%; }
+        .header .navbar a:hover, .header .navbar a.active { color: var(--primary-color); }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff;
+            min-width: 200px; box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1; border-radius: 0.5rem; padding: 0.5rem 0;
+            border-top: 3px solid var(--primary-color);
+        }
+        .dropdown-content a {
+            color: var(--text-dark); padding: 1rem 1.5rem; /* Adjusted padding */
+            text-decoration: none; display: block; font-size: 1.4rem; /* Reduced font size */
+            text-transform: capitalize;
+        }
+        .dropdown-content a::after { display: none; }
+        .dropdown-content a:hover, .dropdown-content a.active {
+            background-color: var(--bg-light); color: var(--primary-color);
+        }
+        
+
+        .header .icons div {
+            height: 4rem; width: 4rem; line-height: 4rem; /* Reduced size */
+            font-size: 1.6rem; /* Reduced icon font size */
+            background: var(--bg-light); color: var(--text-dark);
+            cursor: pointer; text-align: center; margin-left: 0.4rem;
+            border-radius: 50%; transition: var(--transition);
+        }
+        .header .icons div:hover {
+            background: var(--primary-color); color: white; transform: scale(1.1);
+        }
+
+        /* Section Styling */
+        section { padding: 3.5rem 9%; } /* Reduced padding */
+        .section-title {
+            text-align: center; font-size: 2.2rem; /* Reduced font size */
+            margin-bottom: 1rem; color: var(--text-dark); text-transform: capitalize;
+        }
+        .section-description {
+            text-align: center; max-width: 750px; /* Slightly reduced max-width */
+            margin: 0 auto 2.5rem; color: #666;
+            font-size: 1.05rem; /* Reduced font size (equivalent to ~16.8px if base is 16px) */
+            line-height: 1.6;
+        }
+
+        /* About Section specific */
+        .about-hero-content { padding: 3rem 0; text-align: center; }
+        .about-hero-content h3 {
+            font-size: 2.4rem; /* Reduced */
+            color: var(--text-dark); margin-bottom: 1.2rem;
+        }
+        .about-hero-content p {
+            font-size: 1.1rem; /* Reduced */
+            color: #555; line-height: 1.7;
+            max-width: 650px; margin: 0 auto 1.8rem auto;
+        }
+
+        .about .row { display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: center; margin-top: 2.5rem; }
+        .about .row .video { flex: 1 1 40rem; }
+        .about .row .video video {
+            width: 100%; border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .about .row .content { flex: 1 1 40rem; }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.7rem 1.6rem; /* Adjusted padding */
+            background: var(--primary-color); color: white !important;
+            border-radius: 50px; text-decoration: none; font-weight: 600;
+            transition: var(--transition); border: 2px solid var(--primary-color);
+            cursor: pointer; display: inline-flex; align-items: center;
+            justify-content: center; gap: 0.5rem;
+            font-size: 1.45rem; /* Reduced font size */
+            line-height: 1.4;
+        }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important;
+        }
+        .btn:hover {
+            background: var(--secondary-color); border-color: var(--secondary-color);
+            color: white !important; transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4); /* Assuming #ff6b6b */
+        }
+        .btn-outline:hover { background: var(--primary-color); color: white !important; }
+
+        /* Stats Boxes */
+        .box-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr)); /* Adjusted minmax */
+            gap: 2rem; margin-top: 4rem;
+        }
+        .box-container .box {
+            background: white; border-radius: 12px; padding: 2rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); text-align: center;
+            transition: var(--transition);
+        }
+        .box-container .box:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        .box-container .box h3 {
+            font-size: 3rem; /* Reduced number size */
+            color: var(--primary-color); margin-bottom: 0.5rem;
+        }
+        .box-container .box p { font-size: 1.5rem; color: #666; padding-top: 0; line-height: 1.5; }
+
+        /* Service Icons Section */
+        .service-icons-section {
+            padding: 3.5rem 9%; background-color: var(--bg-light); margin-top: 4rem;
+        }
+        .service-icons {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); /* Adjusted minmax */
+            gap: 2rem; margin-top: 2.5rem;
+        }
+        .service-icon {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: var(--transition);
+            text-align: center; padding: 1.8rem;
+        }
+        .service-icon:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        .service-icon i {
+            font-size: 3rem; /* Reduced icon size */
+            color: var(--primary-color); margin-bottom: 1.2rem; display: block;
+        }
+        .service-icon h4 { font-size: 1.6rem; color: var(--text-dark); margin:0; } /* Reduced */
+
+
+    /* Improved Loader */
+    .electric-loader {
+        width: 80px;
+        height: 80px;
+        border: 5px solid var(--primary-color);
+        border-top-color: var(--secondary-color);
+        border-radius: 50%;
+        animation: spin 1s linear infinite, pulsate 2s ease-in-out infinite;
+    }
+
+    @keyframes pulsate {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        50% { transform: scale(1.2) rotate(180deg); }
+    }
+
+    @keyframes spin {
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('_images/circuit-design-hero.jpg');
+        background-size: cover;
+        background-position: center;
+        color: var(--text-light);
+        padding: 8rem 5%;
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        max-width: 800px;
+        margin: 0 auto 2rem;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    /* Section styling */
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: var(--text-dark);
+    }
+
+    .section-description {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 3rem;
+        color: #666;
+        font-size: 1.1rem;
+    }
+
+    /* Services Section */
+    .service-intro {
+        padding: 4rem 5%;
+        background-color: var(--bg-light);
+        margin-bottom: 3rem;
+    }
+
+    .service-intro-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .service-intro-image {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .service-intro-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: var(--transition);
+    }
+
+    .service-intro-text h2 {
+        font-size: 2.2rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-dark);
+    }
+
+    .service-intro-text p {
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+        color: #555;
+    }
+
+    .service-features {
+        list-style: none;
+        padding: 0;
+        margin: 2rem 0;
+    }
+
+    .service-features li {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .service-features li i {
+        color: var(--primary-color);
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+    /* Service Process */
+    .service-process {
+        padding: 4rem 5%;
+    }
+
+    .process-steps {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .process-step {
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        transition: var(--transition);
+    }
+
+    .process-step:hover {
+        transform: translateY(-10px);
+    }
+
+    .step-number {
+        background: var(--primary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        border-radius: 50%;
+        margin: 0 auto 1.5rem;
+    }
+
+    .process-step h3 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .process-step p {
+        color: #666;
+        line-height: 1.5;
+    }
+
+    /* Service Benefits */
+    .service-benefits {
+        padding: 4rem 5%;
+        background-color: var(--bg-light);
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .benefit-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        transition: var(--transition);
+    }
+
+    .benefit-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .benefit-icon {
+        background: var(--primary-color);
+        color: white;
+        padding: 2rem;
+        font-size: 3rem;
+        text-align: center;
+    }
+
+    .benefit-content {
+        padding: 2rem;
+    }
+
+    .benefit-content h3 {
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+    }
+
+    .benefit-content p {
+        color: #666;
+        line-height: 1.5;
+    }
+
+    /* Case Studies Section */
+    .case-studies {
+        padding: 4rem 5%;
+    }
+
+    .case-studies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .case-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        transition: var(--transition);
+    }
+
+    .case-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .case-image {
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .case-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .case-card:hover .case-image img {
+        transform: scale(1.1);
+    }
+
+    .case-content {
+        padding: 1.5rem;
+    }
+
+    .case-content h3 {
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+    }
+
+    .case-content p {
+        color: #666;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .btn {
+        padding: 0.8rem 1.5rem;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+        border: none;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .btn-outline {
+        background: transparent;
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+    }
+
+    .btn:hover {
+        background: var(--secondary-color);
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+    }
+
+    .btn-outline:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    /* Circuit Diagram Showcase */
+    .circuit-showcase {
+        padding: 4rem 5%;
+        background: linear-gradient(135deg, var(--bg-dark) 0%, #1a2a3a 100%);
+        color: var(--text-light);
+        margin: 3rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .circuit-showcase::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('_images/circuit-pattern.svg');
+        opacity: 0.05;
+        z-index: 1;
+    }
+
+    .showcase-content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+
+    .showcase-title {
+        color: var(--accent-color);
+        margin-bottom: 2rem;
+    }
+
+    .circuit-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .gallery-item {
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        height: 200px;
+        cursor: pointer;
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+
+    .gallery-item-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 1rem;
+        transform: translateY(100%);
+        transition: var(--transition);
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+        transform: translateY(0);
+    }
+
+    .gallery-item-overlay h4 {
+        color: white;
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    /* Team Section */
+    .team-section {
+        padding: 4rem 5%;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .team-member {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        transition: var(--transition);
+        text-align: center;
+    }
+
+    .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    .member-image {
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .member-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+    }
+
+    .team-member:hover .member-image img {
+        transform: scale(1.1);
+    }
+
+    .member-info {
+        padding: 1.5rem;
+    }
+
+    .member-info h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+    }
+
+    .member-role {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .member-bio {
+        color: #666;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .member-social {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .member-social a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        background: rgba(219, 52, 52, 0.1);
+        color: var(--primary-color);
+        border-radius: 50%;
+        transition: var(--transition);
+    }
+
+    .member-social a:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    /* FAQ Section */
+    .faq-section {
+        padding: 4rem 5%;
+        background-color: var(--bg-light);
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        margin-bottom: 1rem;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .faq-question {
+        background: white;
+        padding: 1.5rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        color: var(--text-dark);
+        transition: var(--transition);
+    }
+
+    .faq-question:hover {
+        background: var(--bg-light);
+    }
+
+    .faq-question i {
+        transition: var(--transition);
+    }
+
+    .faq-answer {
+        background: white;
+        padding: 0 1.5rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-item.active .faq-question {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 300px;
+        padding: 1.5rem;
+        padding-top: 0;
+    }
+
+    /* Call to Action */
+    .cta-section {
+        padding: 5rem 5%;
+        background: var(--primary-color);
+        color: white;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-content {
+        max-width: 800px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-white {
+        background: white;
+        color: var(--primary-color);
+    }
+
+    .btn-white:hover {
+        background: var(--accent-color);
+        color: var(--text-dark);
+    }
+
+    .cta-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('_images/circuit-pattern.svg');
+        opacity: 0.1;
+        z-index: 1;
+    }
+
+    /* Enhanced Footer */
+    .footer {
+        background: var(--bg-dark);
+        color: var(--text-light);
+        padding: 4rem 5% 2rem;
+        margin-top: 5rem;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-column h4 {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--accent-color);
+        position: relative;
+        padding-bottom: 10px;
+    }
+
+    .footer-column h4::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 50px;
+        height: 3px;
+        background: var(--primary-color);
+        border-radius: 2px;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-links li {
+        margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary-color);
+        transform: translateX(5px);
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .social-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--text-light);
+        border-radius: 50%;
+        transition: var(--transition);
+    }
+
+    .social-links a:hover {
+        transform: translateY(-5px) scale(1.1);
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .copyright {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: var(--primary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        z-index: 999;
+    }
+
+    .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .back-to-top:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px);
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+        .service-intro-content {
+            grid-template-columns: 1fr;
+        }
+        
+        .service-intro-image {
+            order: 1;
+        }
+        
+        .service-intro-text {
+            order: 2;
+        }
+        
+        .hero-content h1 {
+            font-size: 2.5rem;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+        }
+        
+        .cta-section h2 {
+            font-size: 2rem;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<!-- Progress indicator -->
+
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
+
+<!-- Loader -->
+
+<div class="loader">
+    <div class="electric-loader"></div>
+</div>
+
+<!-- Header -->
+
+<header class="header">
+    <a href="index.html" class="logo">
+        <img src="_images/logo.jpg" alt="Logo" width="100" height="100" />
+    </a>
+
+```
+<nav class="navbar">
+    <div class="exit-btn" id="exit-btn">&times;</div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+
+    <div class="dropdown">
+        <a href="services.html" class="active">Services</a>
+        <div class="dropdown-content">
+            <a href="electrical_wiring.html">Electrical Wiring</a>
+            <a href="lighting_installation.html">Lighting Installation</a>
+            <a href="circuit_design.html" class="active">Circuit Design</a>
+            <a href="power_backup.html">Power Backup Systems</a>
+            <a href="safety_inspection.html">Safety Inspection & Compliance</a>
+        </div>
+    </div>
+
+       <div class="dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="dropdown-content">
+            <a href="projects.html">Residential</a>
+            <a href="projects.html">Commercial</a>
+            <a href="projects.html">Industrial</a>
+            <a href="projects.html">Government</a>
+        </div>
+    </div>
+
+   
+
+    <a href="contact.html">Contact</a>
+</nav>
+
+<div class="icons">
+    <div id="menu-btn" class="fas fa-bars"></div>
+    <div id="info-btn" class="fas fa-info-circle" title="Click to See Contact Info"></div>
+    <div id="search-btn" class="fas fa-search" title="Click to See Search Box"></div>
+    <div id="login-btn" class="fas fa-user" title="Click to See Login Form"></div>
+</div>
+
+<!-- Search Form -->
+<form class="search-form">
+    <input type="search" placeholder="Search services, projects, etc..." id="search-box" />
+    <label for="search-box" class="fas fa-search"></label>
+</form>
+
+<!-- Login Form -->
+<form class="login-form">
+    <h3>Client Login</h3>
+    <input type="email" placeholder="Enter your email" class="box" />
+    <input type="password" placeholder="Enter your password" class="box" />
+    <div class="flex">
+        <input type="checkbox" id="remember-me" />
+        <label for="remember-me">Remember me</label>
+        <a href="#">Forgot password?</a>
+    </div>
+    <input type="submit" value="Login Now" class="btn" />
+    <p>Don't have an account? <a href="#">Create one!</a></p>
+</form>
+```
+
+</header>
+
+<!-- Contact Info -->
+
+<div class="contact-info">
+    <div id="close-contact-info" class="fas fa-times"></div>
+
+```
+<div class="info">
+    <i class="fas fa-phone"></i>
+    <h3>Phone Number</h3>
+    <p>+123-456-7890</p>
+    <p>+111-222-3333</p>
+</div>
+
+<div class="info">
+    <i class="fas fa-envelope"></i>
+    <h3>Email Address</h3>
+    <p>info@mosikeelectrical.com</p>
+    <p>support@mosikeelectrical.com</p>
+</div>
+
+<div class="info">
+    <i class="fas fa-map-marker-alt"></i>
+    <h3>Office Address</h3>
+    <p>123 Electric Ave, Power City, SA</p>
+    <a href="https://maps.google.com" target="_blank" class="btn" style="margin-top: 10px;">
+        <i class="fas fa-map-marked-alt"></i> Get Directions
+    </a>
+</div>
+
+<div class="share">
+    <a href="#" class="fab fa-facebook-f"></a>
+    <a href="#" class="fab fa-twitter"></a>
+    <a href="#" class="fab fa-instagram"></a>
+    <a href="#" class="fab fa-linkedin"></a>
+</div>
+```
+
+</div>
+
+<!-- Hero Section -->
+
+<section class="hero-section" data-aos="fade-up">
+    <div class="hero-content">
+        <h1>Professional Circuit Design</h1>
+        <p>Custom electrical circuit solutions for optimal performance, safety, and efficiency</p>
+        <div class="hero-buttons">
+            <a href="#service-process" class="btn">Our Process</a>
+            <a href="#contact" class="btn btn-outline">Request Consultation</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Introduction -->
+
+<section class="service-intro" data-aos="fade-up">
+    <div class="service-intro-content">
+        <div class="service-intro-image" data-aos="fade-right">
+            <img src="_images/circuit-design-main.jpg" alt="Circuit Design Services">
+        </div>
+        <div class="service-intro-text" data-aos="fade-left">
+            <h2>Expert Circuit Design Services</h2>
+            <p>At Mosike Electrical Contractors, we specialize in designing and implementing custom electrical circuit solutions for residential, commercial, and industrial applications. Our expert team of licensed electrical engineers uses the latest technology and industry best practices to create safe, efficient, and reliable electrical systems.</p>
+            <p>Whether you need a simple circuit upgrade for your home or a complex industrial control system, we have the knowledge and experience to deliver results that exceed your expectations.</p>
+            <ul class="service-features">
+                <li><i class="fas fa-check-circle"></i> Custom circuit design for specific applications</li>
+                <li><i class="fas fa-check-circle"></i> Load calculation and distribution planning</li>
+                <li><i class="fas fa-check-circle"></i> Electrical system upgrades and modernization</li>
+                <li><i class="fas fa-check-circle"></i> Smart home and building automation integration</li>
+                <li><i class="fas fa-check-circle"></i> Energy efficiency optimization</li>
+                <li><i class="fas fa-check-circle"></i> Compliance with electrical codes and standards</li>
+            </ul>
+            <a href="#contact" class="btn">Schedule a Consultation</a>
+        </div>
+    </div>
+</section>
+
+<!-- Service Process -->
+
+<section class="service-process" id="service-process" data-aos="fade-up">
+    <h2 class="section-title">Our Circuit Design Process</h2>
+    <p class="section-description">A systematic approach to creating optimal electrical systems for your needs</p>
+
+```
+<div class="process-steps">
+    <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+        <div class="step-number">1</div>
+        <h3>Initial Consultation</h3>
+        <p>We begin with a detailed discussion of your project requirements, goals, and constraints to understand your specific needs.</p>
+    </div>
+
+    <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+        <div class="step-number">2</div>
+        <h3>Site Assessment</h3>
+        <p>Our engineers conduct a thorough inspection of your property to evaluate existing systems and identify opportunities for improvement.</p>
+    </div>
+
+    <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+        <div class="step-number">3</div>
+        <h3>Design Development</h3>
+        <p>We create detailed circuit diagrams, load calculations, and system specifications tailored to your specific requirements.</p>
+    </div>
+
+    <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+        <div class="step-number">4</div>
+        <h3>Client Review</h3>
+        <p>        present the proposed design for your approval, explaining technical details in clear terms and making adjustments based on your feedback.</p>
+    </div>
+
+    <div class="process-step" data-aos="fade-up" data-aos-delay="500">
+        <div class="step-number">5</div>
+        <h3>Implementation Planning</h3>
+        <p>Develop detailed installation plans, material specifications, and project timelines for seamless execution.</p>
+    </div>
+
+    <div class="process-step" data-aos="fade-up" data-aos-delay="600">
+        <div class="step-number">6</div>
+        <h3>Quality Assurance</h3>
+        <p>Conduct rigorous testing and inspection to ensure compliance with SANS 10142-1 and other relevant standards.</p>
+    </div>
+</div>
+</section>
+
+<!-- Circuit Diagram Showcase -->
+<section class="circuit-showcase" data-aos="fade-up">
+    <div class="showcase-content">
+        <h2 class="showcase-title">Our Design Expertise</h2>
+        <div class="circuit-gallery">
+            <div class="gallery-item">
+                <img src="_images/residential-circuit.jpg" alt="Residential Circuit Design">
+                <div class="gallery-item-overlay">
+                    <h4>Residential Systems</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="_images/industrial-control.jpg" alt="Industrial Control Systems">
+                <div class="gallery-item-overlay">
+                    <h4>Industrial Controls</h4>
+                </div>
+            </div>
+            <div class="gallery-item">
+                <img src="_images/smart-home-design.jpg" alt="Smart Home Automation">
+                <div class="gallery-item-overlay">
+                    <h4>Smart Home Integration</h4>
+                </div>
+            </div>
+        </div>
+        <a href="#contact" class="btn btn-outline">View Full Portfolio</a>
+    </div>
+</section>
+
+<!-- Design Benefits Section -->
+<section class="service-benefits" data-aos="fade-up">
+    <h2 class="section-title">Why Choose Our Circuit Design</h2>
+    <p class="section-description">Professional solutions for optimal electrical performance</p>
+
+    <div class="benefits-grid">
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <div class="benefit-content">
+                <h3>Safety First Approach</h3>
+                <p>All designs comply with latest electrical safety regulations and include built-in protection systems.</p>
+            </div>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <i class="fas fa-leaf"></i>
+            </div>
+            <div class="benefit-content">
+                <h3>Energy Efficient</h3>
+                <p>Optimized circuit layouts that reduce energy waste and lower operational costs.</p>
+            </div>
+        </div>
+
+        <div class="benefit-card">
+            <div class="benefit-icon">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </div>
+            <div class="benefit-content">
+                <h3>Future-Proof Design</h3>
+                <p>Scalable solutions that accommodate future expansions and technology upgrades.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section" data-aos="fade-up">
+    <h2 class="section-title">Common Questions</h2>
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What standards do you follow?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>All designs comply with SANS 10142-1 wiring code, IEC standards, and local municipal regulations.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How long does the design process take?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Typical residential projects take 3-5 working days, while commercial projects may require 1-2 weeks depending on complexity.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Do you provide as-built documentation?</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Yes, we deliver complete documentation packages including circuit diagrams, load calculations, and equipment specifications.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" data-aos="fade-up">
+    <div class="cta-content">
+        <h2>Ready to Power Your Project?</h2>
+        <p>Contact us today for a free circuit design consultation and quote</p>
+        <div class="cta-buttons">
+            <a href="tel:+27115551234" class="btn btn-white">
+                <i class="fas fa-phone"></i> Call Now
+            </a>
+            <a href="contact.html" class="btn btn-outline">
+                <i class="fas fa-envelope"></i> Email Us
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Back to Top -->
+<div class="back-to-top" id="backToTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-column">
+            <h4>Services</h4>
+            <ul class="footer-links">
+                <li><a href="electrical_wiring.html">Wiring</a></li>
+                <li><a href="lighting_installation.html">Lighting</a></li>
+                <li><a href="circuit_design.html">Circuit Design</a></li>
+                <li><a href="power_backup.html">Backup Systems</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Company</h4>
+            <ul class="footer-links">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="contact.html">Careers</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Support</h4>
+            <ul class="footer-links">
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="terms.html">Terms of Service</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-column">
+            <h4>Connect</h4>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <p>&copy; 2023 Mosike Electrical Contractors. All rights reserved | Reg. No: 2023/123456/07</p>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<script>
+    // Initialize AOS
+    AOS.init({
+        duration: 1000,
+        once: true
+    });
+
+    // Back to Top Button
+    window.addEventListener('scroll', () => {
+        const backToTop = document.getElementById('backToTop');
+        if (window.scrollY > 300) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    document.getElementById('backToTop').addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', () => {
+            const parent = item.parentElement;
+            parent.classList.toggle('active');
+        });
+    });
+
+    // Mobile Menu
+    const menuBtn = document.getElementById('menu-btn');
+    const navbar = document.querySelector('.navbar');
+    const exitBtn = document.getElementById('exit-btn');
+
+    menuBtn.addEventListener('click', () => {
+        navbar.classList.add('active');
+    });
+
+    exitBtn.addEventListener('click', () => {
+        navbar.classList.remove('active');
+    });
+
+    // Close menus on click outside
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && !menuBtn.contains(e.target)) {
+            navbar.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>

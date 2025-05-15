@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lighting Installation | Mosike Electrical Contractors</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+    <style>
+        :root {
+            --primary-color: #db3434;
+            --secondary-color: #ff6b6b;
+            --accent-color: #f1c40f;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --bg-light: #f8f9fa;
+            --bg-dark: #34495e;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            scroll-behavior: smooth;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            background-color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            width: 100%; height: 5px; background-color: transparent;
+            position: fixed; top: 0; left: 0; z-index: 2000;
+        }
+        .progress-bar {
+            height: 5px; background-color: var(--primary-color); width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed; top: 0; left: 0; height: 100%; width: 100%;
+            z-index: 10000; background: #fff; display: flex;
+            align-items: center; justify-content: center;
+            transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+        }
+        .loader.fade-out { opacity: 0; visibility: hidden; }
+        .electric-loader {
+            width: 80px; height: 80px; border: 5px solid var(--primary-color);
+            border-top-color: var(--secondary-color); border-radius: 50%;
+            animation: spin 1s linear infinite, pulsate 2s ease-in-out infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulsate {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Header */
+        .header {
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.2rem 9%;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .header .logo img { height: 4.5rem; transition: var(--transition); }
+        .header .logo img:hover { transform: scale(1.05); }
+
+        .header .navbar { display: flex; gap: 1.8rem; align-items: center; }
+        .header .navbar a {
+            font-size: 1.5rem; color: var(--text-dark); text-transform: capitalize;
+            text-decoration: none; padding: 0.5rem 0; position: relative;
+        }
+        .header .navbar a::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 0; height: 2px; background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        .header .navbar a:hover::after, .header .navbar a.active::after { width: 100%; }
+        .header .navbar a:hover, .header .navbar a.active { color: var(--primary-color); }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none; position: absolute; background-color: #fff;
+            min-width: 220px; 
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1; border-radius: 0.5rem; padding: 0.5rem 0;
+            border-top: 3px solid var(--primary-color);
+        }
+        .dropdown-content a {
+            color: var(--text-dark); padding: 1rem 1.5rem;
+            text-decoration: none; display: block; font-size: 1.4rem;
+            text-transform: capitalize;
+        }
+        .dropdown-content a::after { display: none; }
+        .dropdown-content a:hover, .dropdown-content a.active {
+            background-color: var(--bg-light); color: var(--primary-color);
+        }
+        .dropdown.active .dropdown-content { display: block; }
+        
+        .header .navbar .exit-btn {
+            display: none; font-size: 2.5rem; color: var(--text-dark);
+            cursor: pointer; position: absolute; top: 1.5rem; right: 1.5rem;
+        }
+
+        .header .icons div {
+            height: 4rem; width: 4rem; line-height: 4rem;
+            font-size: 1.6rem; background: var(--bg-light); color: var(--text-dark);
+            cursor: pointer; text-align: center; margin-left: 0.4rem;
+            border-radius: 50%; transition: var(--transition);
+            display: flex; align-items: center; justify-content: center; /* For icon centering */
+        }
+        .header .icons div:hover {
+            background: var(--primary-color); color: white; transform: scale(1.1);
+        }
+        .header .icons #menu-btn {
+            display: none; /* Hidden on desktop, shown on mobile via media query */
+        }
+
+        /* General Section Styling */
+        section { padding: 3.5rem 9%; }
+        .section-title {
+            text-align: center; font-size: 2.2rem;
+            margin-bottom: 1rem; color: var(--text-dark); text-transform: capitalize;
+        }
+        .page-breadcrumb-section { /* Wrapper for breadcrumb */
+            background-color: var(--bg-light);
+            padding: 2rem 9%; 
+            margin-bottom: 0; /* Remove bottom margin if content flows directly */
+        }
+        .page-breadcrumb-section .section-title { margin-bottom: 0.5rem; }
+        .page-breadcrumb {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+        }
+        .page-breadcrumb a { color: var(--primary-color); text-decoration: none; }
+        .page-breadcrumb a:hover { text-decoration: underline; }
+        .page-breadcrumb span { color: var(--text-dark); }
+
+        .section-description {
+            text-align: center; max-width: 750px;
+            margin: 0 auto 2.5rem; color: #666;
+            font-size: 1.05rem; line-height: 1.6;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 0.7rem 1.6rem; background: var(--primary-color); color: white !important;
+            border-radius: 50px; text-decoration: none; font-weight: 600;
+            transition: var(--transition); border: 2px solid var(--primary-color);
+            cursor: pointer; display: inline-flex; align-items: center;
+            justify-content: center; gap: 0.5rem;
+            font-size: 1.45rem; line-height: 1.4;
+        }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--primary-color);
+            color: var(--primary-color) !important;
+        }
+        .btn:hover {
+            background: var(--secondary-color); border-color: var(--secondary-color);
+            color: white !important; transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        .btn-outline:hover { background: var(--primary-color); color: white !important; }
+        .btn-white {
+            background: white; color: var(--primary-color) !important; border-color: white;
+        }
+        .btn-white:hover {
+            background: var(--accent-color); color: var(--text-dark) !important; border-color: var(--accent-color);
+        }
+        
+        /* Generic Hero Section Style */
+        .hero-section {
+            position: relative;
+            background-size: cover; background-position: center;
+            color: var(--text-light); padding: 7rem 5%;
+            text-align: center; margin-bottom: 0;
+        }
+        .hero-content h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+        .hero-content p { font-size: 1.15rem; max-width: 700px; margin: 0 auto 2rem; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+        /* Generic Service Introduction Section Style */
+        .service-intro {
+            padding: 4rem 5%; background-color: var(--bg-light); margin-bottom: 0;
+        }
+        .service-intro-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+        }
+        .service-intro-image { border-radius: 12px; overflow: hidden; box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .service-intro-image img { width: 100%; height: auto; display: block; transition: var(--transition); }
+        .service-intro-text h2 { font-size: 2rem; margin-bottom: 1.5rem; color: var(--text-dark); }
+        .service-intro-text p { margin-bottom: 1.5rem; line-height: 1.6; color: #555; font-size: 1.05rem; }
+        .service-features { list-style: none; padding: 0; margin: 2rem 0; }
+        .service-features li { margin-bottom: 1rem; display: flex; align-items: center; font-size: 1.05rem;}
+        .service-features li i { color: var(--primary-color); margin-right: 10px; font-size: 1.2rem; }
+
+        /* Generic Process Steps Section Style */
+        .service-process { padding: 4rem 5%; }
+        .process-steps {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem; margin-top: 3rem;
+        }
+        .process-step {
+            background: white; border-radius: 12px; padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); text-align: center;
+            position: relative; z-index: 1; transition: var(--transition);
+        }
+        .process-step:hover { transform: translateY(-10px); }
+        .step-number {
+            background: var(--primary-color); color: white; width: 50px; height: 50px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; font-weight: bold; border-radius: 50%;
+            margin: 0 auto 1.5rem;
+        }
+        .process-step h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+        .process-step p { color: #666; line-height: 1.5; font-size: 1rem;}
+
+        /* Generic Benefits Section Style (Card-based) */
+        .service-benefits { padding: 4rem 5%; background-color: var(--bg-light); }
+        .benefits-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem; margin-top: 3rem;
+        }
+        .benefit-card {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: var(--transition);
+        }
+        .benefit-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .benefit-icon {
+            background: var(--primary-color); color: white; padding: 2rem;
+            font-size: 2.8rem; text-align: center;
+        }
+        .benefit-content { padding: 2rem; }
+        .benefit-content h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+        .benefit-content p { color: #666; line-height: 1.5; font-size: 1rem;}
+
+        /* Generic Showcase/Case Studies/Gallery Section Style */
+        .showcase-section { padding: 4rem 5%; }
+        .gallery-grid { /* General name for a grid of items */
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        .gallery-item-card { /* General name for a card in the gallery */
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08); transition: var(--transition);
+            text-decoration: none; /* If the card itself is a link */
+            color: var(--text-dark);
+        }
+        .gallery-item-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .gallery-item-image { height: 200px; overflow: hidden; position: relative;}
+        .gallery-item-image img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+        .gallery-item-card:hover .gallery-item-image img { transform: scale(1.1); }
+        .gallery-item-content { padding: 1.5rem; }
+        .gallery-item-content h3 { margin-bottom: 1rem; font-size: 1.3rem; }
+        .gallery-item-content p { color: #666; margin-bottom: 1.5rem; line-height: 1.5; font-size: 1rem;}
+        
+        /* Lightgallery specific item styling if needed */
+        .lg-item { cursor: pointer; } /* Make items with this class clickable for lightgallery */
+
+
+        /* FAQ Section Style */
+        .faq-section { padding: 4rem 5%; background-color: var(--bg-light); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            margin-bottom: 1rem; border-radius: 8px; overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .faq-question {
+            background: white; padding: 1.5rem; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 600; color: var(--text-dark); transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        .faq-question:hover { background: var(--bg-light); }
+        .faq-question i { transition: var(--transition); }
+        .faq-answer {
+            background: white; padding: 0 1.5rem; max-height: 0;
+            overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-answer p {font-size: 1.05rem; line-height: 1.6; color: #555;}
+        .faq-item.active .faq-question { background: var(--primary-color); color: white; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-item.active .faq-answer { max-height: 300px; padding: 1.5rem; padding-top: 0.5rem; }
+
+        /* Call to Action Section Style */
+        .cta-section {
+            padding: 4rem 5%; background: var(--primary-color); color: white;
+            text-align: center; position: relative; overflow: hidden;
+        }
+        .cta-content { max-width: 750px; margin: 0 auto; position: relative; z-index: 2; }
+        .cta-section h2 { font-size: 2.2rem; margin-bottom: 1rem; }
+        .cta-section p { font-size: 1.15rem; margin-bottom: 2rem; opacity: 0.9; }
+        .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .cta-section::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('_images/circuit-pattern.svg'); 
+            opacity: 0.1; z-index: 1;
+        }
+        
+        /* Search Form & Login Form Styles */
+        .search-form, .login-form {
+            position: fixed; background: #fff;
+            box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.2);
+            padding: 2rem; border-radius: .5rem; z-index: 1001;
+            opacity: 0; visibility: hidden;
+            transition: top 0.35s ease, opacity 0.35s ease, visibility 0s linear 0.35s;
+        }
+        .search-form.active, .login-form.active {
+            opacity: 1; visibility: visible;
+            transition: top 0.35s ease, opacity 0.35s ease, visibility 0s linear 0s;
+        }
+        .search-form { left: 0; right: 0; top: -100%; display: flex; align-items: center; }
+        .login-form {
+            left: 50%; transform: translateX(-50%);
+            width: 90%; max-width: 38rem; text-align: center; top: -100%;
+        }
+        .search-form.active { top: 70px; }
+        .login-form.active { top: 75px; }
+
+        .search-form #search-box, .login-form .box {
+            width: 100%; padding: 1rem; font-size: 1.5rem;
+            color: var(--text-dark); margin: .7rem 0;
+            border: 1px solid #ccc; border-radius: .5rem;
+        }
+        .search-form #search-box:focus, .login-form .box:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(219, 52, 52, 0.25);
+        }
+        .login-form h3 { font-size: 2rem; color: var(--text-dark); text-transform: capitalize; margin-bottom: 1.2rem; }
+
+        /* Contact Info Sidebar Style */
+        .contact-info {
+            position: fixed; top: 0; right: -100%; width: 33rem;
+            height: 100vh; background: #fff; padding: 2rem;
+            box-shadow: -0.5rem 0 1rem rgba(0,0,0,0.1); z-index: 1002;
+            overflow-y: auto; opacity: 0; visibility: hidden;
+            transition: right 0.3s ease, opacity 0.3s ease, visibility 0s linear 0.3s;
+        }
+        .contact-info.active { 
+            right: 0; opacity: 1; visibility: visible;
+            transition: right 0.3s ease, opacity 0.3s ease, visibility 0s linear 0s;
+        }
+        .contact-info #close-contact-info {
+            font-size: 2.2rem; color: var(--text-dark); cursor: pointer;
+            position: absolute; top: 1.2rem; right: 1.2rem;
+        }
+        .contact-info #close-contact-info:hover { color: var(--primary-color); }
+        .contact-info .info { padding: 1.2rem 0; border-bottom: 1px solid #eee; }
+        .contact-info .info i { font-size: 1.8rem; color: var(--primary-color); margin-right: 0.8rem; }
+        .contact-info .info h3 { font-size: 1.8rem; color: var(--text-dark); padding-bottom: .4rem; }
+        .contact-info .info p { font-size: 1.4rem; color: #666; line-height: 1.5; }
+        .contact-info .share { padding-top: 1.8rem; text-align: center; }
+        .contact-info .share a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; background: rgba(219, 52, 52, 0.1);
+            color: var(--primary-color); margin: 0 .3rem; border-radius: 50%;
+            text-decoration: none; font-size: 1.7rem; transition: var(--transition);
+        }
+        .contact-info .share a:hover {
+            background: var(--primary-color); color: white; transform: translateY(-3px);
+        }
+
+        /* Footer Style */
+        .footer {
+            background: var(--bg-dark); color: var(--text-light);
+            padding: 3.5rem 9% 1.8rem; margin-top: 3.5rem; /* Added margin-top for separation */
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2.5rem; margin-bottom: 2.5rem;
+        }
+        .footer-column h4 {
+            font-size: 1.4rem; margin-bottom: 1.2rem;
+            color: var(--accent-color); position: relative; padding-bottom: 8px;
+        }
+        .footer-column h4::after {
+            content: ''; position: absolute; bottom: 0; left: 0;
+            width: 40px; height: 2px; background: var(--primary-color); border-radius: 2px;
+        }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a, .footer-column p.footer-text { /* Added .footer-text for specificity */
+            color: var(--text-light); text-decoration: none; transition: var(--transition);
+            display: flex; align-items: center; gap: 7px; font-size:1.4rem; opacity: 0.9;
+        }
+        .footer-column p.footer-text {line-height: 1.6; display: block;} /* Ensure P tags flow normally */
+        .footer-links a:hover { color: var(--primary-color); transform: translateX(4px); opacity: 1;}
+        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light); border-radius: 50%; transition: var(--transition);
+            text-decoration: none; font-size: 1.7rem;
+        }
+        .social-links a:hover {
+            transform: translateY(-4px) scale(1.1); background: var(--primary-color); color: white;
+        }
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 1.8rem;
+            text-align: center; font-size: 1.3rem; opacity: 0.7;
+        }
+
+        /* Back to top button Style */
+        .back-to-top {
+            position: fixed; bottom: 1.8rem; right: 1.8rem;
+            background: var(--primary-color); color: white;
+            width: 45px; height: 45px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; opacity: 0; visibility: hidden;
+            transition: var(--transition); box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 999; font-size: 1.8rem;
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--secondary-color); transform: translateY(-4px); }
+
+        /* Responsive Styles */
+        @media (max-width: 991px) { /* Tablet */
+            html { font-size: 55%; }
+            .header { padding: 1.2rem 2rem; }
+            .header .logo img { height: 3.8rem; }
+            
+            .header .icons #menu-btn { display: inline-flex; }
+            .header .navbar {
+                position: fixed; top: 0; left: -100%; width: 28rem;
+                height: 100vh; background: #fff; flex-direction: column;
+                align-items: flex-start; padding: 4rem 2rem;
+                z-index: 1001; transition: left 0.3s linear;
+                box-shadow: 0.5rem 0 1rem rgba(0,0,0,0.1);
+            }
+            .header .navbar.active { left: 0; }
+            .header .navbar .exit-btn { display: block; }
+            .header .navbar a, .header .navbar .dropdown > a {
+                display: block; margin: 1.2rem 0; font-size: 1.8rem; padding: 0.8rem 0;
+            }
+            .header .navbar .dropdown-content {
+                position: static; background-color: transparent; box-shadow: none;
+                padding-left: 1.5rem; border-top: none;
+            }
+
+            section, .service-intro, .service-process, .service-benefits, .showcase-section, .faq-section, .cta-section, .footer {
+                padding: 2.5rem 2rem;
+             }
+            .search-form.active { top: 60px; }
+            .login-form.active { top: 65px; }
+
+            .service-intro-content { grid-template-columns: 1fr; }
+            .service-intro-image { order: 1; }
+            .service-intro-text { order: 2; }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .section-title { font-size: 1.9rem; }
+            .cta-section h2 { font-size: 1.9rem; }
+        }
+
+        @media (max-width: 480px) {
+            html { font-size: 50%; }
+            .contact-info { width: 100%; }
+            .search-form.active, .login-form.active { padding: 1.5rem; }
+            .search-form.active { top: 50px; }
+            .login-form.active { top: 55px; }
+            .hero-content h1 { font-size: 2rem; }
+            .section-title { font-size: 1.7rem; }
+            .cta-section h2 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="loader">
+        <div class="electric-loader"></div>
+    </div>
+
+    <header class="header">
+        <a href="index.html" class="logo"><img src="_images/logo.jpg" alt="Mosike Electrical Contractors Logo" class="logo-img"></a>
+
+        <nav class="navbar">
+            <div class="exit-btn" id="exit-btn">&times;</div>
+            <a href="index.html">home</a>
+            <a href="about.html">about</a>
+
+            <div class="dropdown">
+                <a href="services.html" class="dropdown-toggle active">services</a>
+                <div class="dropdown-content">
+                    <a href="electrical_wiring.html">Electrical Wiring</a>
+                    <a href="lighting_installation.html" class="active">Lighting Installation</a> <a href="circuit_design.html">Circuit Design</a>
+                    <a href="power_backup.html">Power Backup Systems</a>
+                    <a href="safety_inspection.html">Safety Inspection & Compliance</a>
+                </div>
+            </div>
+
+    <div class="dropdown">
+        <a href="projects.html">Projects</a>
+        <div class="dropdown-content">
+            <a href="projects.html">Residential</a>
+            <a href="projects.html">Commercial</a>
+            <a href="projects.html">Industrial</a>
+            <a href="projects.html">Government</a>
+        </div>
+    </div>
+            </div>
+            <a href="contact.html">contact</a>
+            <a href="blogs.html">blogs</a>
+        </nav>
+
+        <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="info-btn" class="fas fa-info-circle" title="Click to See Contact Info"></div>
+            <div id="search-btn" class="fas fa-search" title="Click to See Search Box"></div>
+            <div id="login-btn" class="fas fa-user" title="Click to See Login Form"></div>
+        </div>
+
+        <form action="" class="search-form">
+            <input type="search" name="query" placeholder="search here..." id="search-box">
+            <label for="search-box" class="fas fa-search"></label>
+        </form>
+
+        <form action="" class="login-form">
+            <h3>login form</h3>
+            <input type="email" placeholder="enter your email" class="box">
+            <input type="password" placeholder="enter your password" class="box">
+            <div class="flex">
+                <input type="checkbox" name="remember" id="remember-me">
+                <label for="remember-me">remember me</label>
+                <a href="#">forgot password?</a>
+            </div>
+            <input type="submit" value="login now" class="btn">
+            <p>Don't have an account? <a href="#">Create one!</a></p>
+        </form>
+    </header>
+
+    <div class="contact-info">
+        <div id="close-contact-info" class="fas fa-times"></div>
+        <div class="info">
+            <i class="fas fa-phone"></i><h3>Phone Number</h3>
+            <p>+123-456-7890</p><p>+111-222-3333</p>
+        </div>
+        <div class="info">
+            <i class="fas fa-envelope"></i><h3>Email Address</h3>
+            <p>info@mosikeelectrical.com</p><p>support@mosikeelectrical.com</p>
+        </div>
+        <div class="info">
+            <i class="fas fa-map-marker-alt"></i><h3>Office Address</h3>
+            <p>123 Electric Ave, Power City, SA</p>
+            <a href="https://maps.google.com/?q=123+Electric+Ave,+Power+City,+SA" target="_blank" class="btn" style="margin-top: 10px;">
+                <i class="fas fa-map-marked-alt"></i> Get Directions
+            </a>
+        </div>
+        <div class="share">
+            <a href="#" class="fab fa-facebook-f" aria-label="Facebook"></a>
+            <a href="#" class="fab fa-twitter" aria-label="Twitter"></a>
+            <a href="#" class="fab fa-instagram" aria-label="Instagram"></a>
+            <a href="#" class="fab fa-linkedin" aria-label="LinkedIn"></a>
+        </div>
+    </div>
+
+    <section class="page-header-breadcrumb" data-aos="fade-up">
+        <h1 class="section-title">Lighting Installation Services</h1>
+        <p class="page-breadcrumb">
+            <a href="index.html">Home</a> / 
+            <a href="services.html">Services</a> / 
+            <span>Lighting Installation</span>
+        </p>
+    </section>
+
+    <section class="hero-section" data-aos="fade-up" style="background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('_images/lighting-hero.jpg');">
+        <div class="hero-content">
+            <h1>Illuminate Your Space with Expert Lighting</h1>
+            <p>Professional lighting design and installation for residential, commercial, and industrial properties.</p>
+            <div class="hero-buttons">
+                <a href="#lighting-types" class="btn">Explore Lighting Types</a>
+                <a href="contact.html" class="btn btn-outline">Request Consultation</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-intro" data-aos="fade-up">
+        <div class="service-intro-content">
+            <div class="service-intro-image" data-aos="fade-right" data-aos-delay="100">
+                <img src="_images/lighting-main.jpg" alt="Modern Lighting Installation">
+            </div>
+            <div class="service-intro-text" data-aos="fade-left" data-aos-delay="200">
+                <h2>Transform Your Environment with Light</h2>
+                <p>At Mosike Electrical Contractors, we specialize in creating stunning and functional lighting environments. Whether you're looking to enhance your home's ambiance, improve workplace productivity, or secure your industrial facility, our expert team delivers tailored lighting solutions.</p>
+                <p>We combine aesthetic design with energy-efficient technology and precision installation to bring your vision to light, adhering to all safety and quality standards.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check-circle"></i> Interior & Exterior Lighting Design</li>
+                    <li><i class="fas fa-check-circle"></i> LED Upgrades & Energy-Efficient Solutions</li>
+                    <li><i class="fas fa-check-circle"></i> Smart Lighting & Control Systems</li>
+                    <li><i class="fas fa-check-circle"></i> Security & Landscape Lighting</li>
+                    <li><i class="fas fa-check-circle"></i> Commercial & Industrial High-Bay Lighting</li>
+                    <li><i class="fas fa-check-circle"></i> Emergency & Exit Lighting</li>
+                </ul>
+                <a href="contact.html" class="btn">Discuss Your Lighting Project</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="lighting-types" class="showcase-section" data-aos="fade-up">
+        <h2 class="section-title">Lighting Solutions We Offer</h2>
+        <p class="section-description">A wide range of lighting installations to suit every need and style.</p>
+        <div class="gallery-grid lightgallery"> <a href="_images/lighting-ambient.jpg" class="gallery-item-card lg-item" data-aos="zoom-in" data-aos-delay="100" data-sub-html="<h4>Ambient Lighting</h4><p>Overall illumination for comfortable spaces.</p>">
+                <div class="gallery-item-image"><img src="_images/lighting-ambient-thumb.jpg" alt="Ambient Lighting"></div>
+                <div class="gallery-item-content"><h3>Ambient Lighting</h3><p>General illumination to create a comfortable atmosphere.</p></div>
+            </a>
+            <a href="_images/lighting-task.jpg" class="gallery-item-card lg-item" data-aos="zoom-in" data-aos-delay="200" data-sub-html="<h4>Task Lighting</h4><p>Focused light for specific activities like reading or cooking.</p>">
+                <div class="gallery-item-image"><img src="_images/lighting-task-thumb.jpg" alt="Task Lighting"></div>
+                <div class="gallery-item-content"><h3>Task Lighting</h3><p>Directed light for workspaces, kitchens, and reading areas.</p></div>
+            </a>
+            <a href="_images/lighting-accent.jpg" class="gallery-item-card lg-item" data-aos="zoom-in" data-aos-delay="300" data-sub-html="<h4>Accent Lighting</h4><p>Highlighting architectural features or decor.</p>">
+                <div class="gallery-item-image"><img src="_images/lighting-accent-thumb.jpg" alt="Accent Lighting"></div>
+                <div class="gallery-item-content"><h3>Accent Lighting</h3><p>To draw attention to artwork, architectural details, or objects.</p></div>
+            </a>
+            <a href="_images/lighting-smart.jpg" class="gallery-item-card lg-item" data-aos="zoom-in" data-aos-delay="400" data-sub-html="<h4>Smart Lighting Controls</h4><p>Automated and remote control for convenience and efficiency.</p>">
+                <div class="gallery-item-image"><img src="_images/lighting-smart-thumb.jpg" alt="Smart Lighting"></div>
+                <div class="gallery-item-content"><h3>Smart Lighting</h3><p>Automated systems for control via apps, voice, or schedules.</p></div>
+            </a>
+        </div>
+    </section>
+    
+    <section class="service-benefits" data-aos="fade-up">
+        <h2 class="section-title">Advantages of Our Lighting Services</h2>
+        <p class="section-description">Experience the difference professional lighting installation makes.</p>
+        <div class="benefits-grid">
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="benefit-icon"><i class="fas fa-eye"></i></div>
+                <div class="benefit-content">
+                    <h3>Enhanced Aesthetics</h3>
+                    <p>Beautifully designed lighting that complements your space and style.</p>
+                </div>
+            </div>
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="benefit-icon"><i class="fas fa-leaf"></i></div>
+                <div class="benefit-content">
+                    <h3>Energy Efficiency</h3>
+                    <p>Modern LED and smart solutions to reduce energy consumption and costs.</p>
+                </div>
+            </div>
+            <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="benefit-icon"><i class="fas fa-user-cog"></i></div>
+                <div class="benefit-content">
+                    <h3>Improved Functionality</h3>
+                    <p>Optimal lighting levels for safety, productivity, and task performance.</p>
+                </div>
+            </div>
+             <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="benefit-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                <div class="benefit-content">
+                    <h3>Increased Property Value</h3>
+                    <p>Well-designed and professionally installed lighting enhances property appeal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" data-aos="fade-up">
+        <h2 class="section-title">Lighting FAQs</h2>
+        <div class="faq-container">
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="faq-question"><span>What are the benefits of LED lighting?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>LED lights are highly energy-efficient, have a very long lifespan, offer excellent light quality, and are environmentally friendly as they contain no mercury.</p></div>
+            </div>
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="faq-question"><span>Can you help with lighting design?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Absolutely! Our team includes experts who can help you design a lighting layout that is both functional and aesthetically pleasing, tailored to your specific space and needs.</p></div>
+            </div>
+             <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                <div class="faq-question"><span>What is smart lighting?</span><i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer"><p>Smart lighting systems allow you to control your lights remotely via a smartphone app, voice commands, or automated schedules. They can enhance convenience, security, and energy savings.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" data-aos="fade-up">
+        <div class="cta-content">
+            <h2>Ready to Brighten Your World?</h2>
+            <p>For innovative and reliable lighting installation services, look no further than Mosike Electrical Contractors.</p>
+            <div class="cta-buttons">
+                <a href="tel:+1234567890" class="btn btn-white"><i class="fas fa-phone"></i> Get a Lighting Quote</a>
+                <a href="contact.html" class="btn btn-outline" style="border-color:white; color:white !important;"><i class="fas fa-envelope"></i> Contact Us Today</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fas fa-angle-right"></i> Home</a></li>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="services.html"><i class="fas fa-angle-right"></i> Services</a></li>
+                    <li><a href="projects.html"><i class="fas fa-angle-right"></i> Projects</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Our Services</h4>
+                <ul class="footer-links">
+                    <li><a href="electrical_wiring.html"><i class="fas fa-bolt"></i> Electrical Wiring</a></li>
+                    <li><a href="lighting_installation.html"><i class="fas fa-lightbulb"></i> Lighting Installation</a></li>
+                    <li><a href="circuit_design.html"><i class="fas fa-project-diagram"></i> Circuit Design</a></li>
+                    <li><a href="power_backup.html"><i class="fas fa-car-battery"></i> Power Backup</a></li>
+                    <li><a href="safety_inspection.html"><i class="fas fa-shield-alt"></i> Safety Inspection</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <ul class="footer-links">
+                    <li><a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123-456-7890</a></li>
+                    <li><a href="mailto:info@mosikeelectrical.com"><i class="fas fa-envelope"></i> info@mosikeelectrical.com</a></li>
+                </ul>
+                 <p class="footer-text" style="display:flex; align-items:flex-start; gap:7px; margin-top:0.8rem;"><i class="fas fa-map-marker-alt" style="margin-top:4px;"></i> 123 Electric Ave, Power City, SA</p>
+                 <h4 style="margin-top:2rem;">Connect With Us</h4>
+                 <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+             <div class="footer-column">
+                <h4>About Mosike</h4>
+                <p class="footer-text">Mosike Electrical Contractors is dedicated to providing top-tier electrical solutions. Our certified experts ensure safety, efficiency, and reliability for all your electrical needs.</p>
+                <a href="about.html" class="btn" style="margin-top:1.5rem; background: var(--accent-color); color: var(--text-dark) !important; border-color:var(--accent-color);">Learn More</a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© <span id="currentYear">2024</span> Mosike Electrical Contractors. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery-js/1.4.0/js/lightgallery.min.js"></script>
+<script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script> <script>
+    // Initialize AOS
+    AOS.init({ duration: 700, once: false, delay: 50 });
+
+    // Initialize LightGallery for .lightgallery containers
+    const galleries = document.querySelectorAll('.lightgallery');
+    if (galleries.length > 0) {
+        galleries.forEach(gallery => {
+            lightGallery(gallery, {
+                selector: '.lg-item', // Targets items with this class within the .lightgallery container
+                thumbnail: true,
+                download: false,
+                autoplayControls: false,
+                zoom: true,
+                fullScreen: true,
+                share: false
+            });
+        });
+    }
+
+    // Copyright Year
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    // Standard Site Scripts (Loader, Progress, Popups, etc.)
+    window.onload = function() {
+        const loaderElement = document.querySelector('.loader');
+        if (loaderElement) {
+            loaderElement.classList.add('fade-out');
+            setTimeout(() => {
+                if (loaderElement.parentElement) {
+                    loaderElement.style.display = 'none';
+                }
+            }, 500);
+        }
+    };
+
+    const progressBar = document.getElementById("progressBar");
+    const backToTopButton = document.getElementById("backToTop");
+
+    const menuBtn = document.getElementById('menu-btn');
+    const navbar = document.querySelector('.header .navbar');
+    const exitBtn = document.getElementById('exit-btn');
+
+    const infoBtn = document.getElementById('info-btn');
+    const contactInfo = document.querySelector('.contact-info');
+    const closeContactInfo = document.getElementById('close-contact-info');
+
+    const searchBtn = document.getElementById('search-btn');
+    const searchForm = document.querySelector('.search-form');
+    const searchBox = document.getElementById('search-box');
+
+    const loginBtn = document.getElementById('login-btn');
+    const loginForm = document.querySelector('.login-form');
+
+    function scrollProgressAndTopButton() {
+        if(progressBar) {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            if(scrolled > 100) scrolled = 100;
+            progressBar.style.width = scrolled + "%";
+        }
+
+        if (backToTopButton) {
+            if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                backToTopButton.classList.add("visible");
+            } else {
+                backToTopButton.classList.remove("visible");
+            }
+        }
+    }
+
+    function closeAllPopups(exceptThisOne = null) {
+        if(navbar && navbar !== exceptThisOne && navbar.classList.contains('active')) navbar.classList.remove('active');
+        if(contactInfo && contactInfo !== exceptThisOne && contactInfo.classList.contains('active')) contactInfo.classList.remove('active');
+        if(searchForm && searchForm !== exceptThisOne && searchForm.classList.contains('active')) searchForm.classList.remove('active');
+        if(loginForm && loginForm !== exceptThisOne && loginForm.classList.contains('active')) loginForm.classList.remove('active');
+    }
+    
+    window.onscroll = () => {
+        scrollProgressAndTopButton();
+        closeAllPopups();
+    };
+
+    if(backToTopButton){
+        backToTopButton.onclick = () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    }
+
+    function setupToggle(btn, element, focusElement = null) {
+        if (btn && element) {
+            btn.onclick = (e) => {
+                e.stopPropagation();
+                const isActive = element.classList.contains('active');
+                closeAllPopups(element); 
+                element.classList.toggle('active'); 
+                if (element.classList.contains('active') && focusElement) {
+                    focusElement.focus();
+                }
+            };
+        }
+    }
+
+    setupToggle(menuBtn, navbar);
+    if (exitBtn && navbar) { 
+        exitBtn.onclick = (e) => {
+            e.stopPropagation();
+            navbar.classList.remove('active');
+        }; 
+    }
+    
+    setupToggle(infoBtn, contactInfo);
+    if (closeContactInfo && contactInfo) { 
+        closeContactInfo.onclick = (e) => {
+            e.stopPropagation();
+            contactInfo.classList.remove('active');
+        };
+    }
+
+    setupToggle(searchBtn, searchForm, searchBox);
+    setupToggle(loginBtn, loginForm);
+
+    document.querySelectorAll('.dropdown > a.dropdown-toggle').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            e.stopPropagation();
+            const dropdown = this.parentElement;
+            const isActive = dropdown.classList.contains('active');
+            
+            document.querySelectorAll('.dropdown.active').forEach(openDropdown => {
+                if (openDropdown !== dropdown) {
+                   openDropdown.classList.remove('active');
+                }
+            });
+
+            if (!isActive) {
+                dropdown.classList.add('active');
+            } else {
+                dropdown.classList.remove('active');
+            }
+        });
+    });
+    
+    const faqItems = document.querySelectorAll('.faq-item');
+    if (faqItems.length > 0) {
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            if (question) {
+                question.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const currentlyActive = document.querySelector('.faq-item.active');
+                    if (currentlyActive && currentlyActive !== item) {
+                        currentlyActive.classList.remove('active');
+                    }
+                    item.classList.toggle('active');
+                });
+            }
+        });
+    }
+
+    document.addEventListener('click', function(e) {
+        let clickedInsideInteractiveElement = false;
+        const interactiveParents = ['.header .icons', '.dropdown', '.contact-info', '.search-form', '.login-form', '.faq-item'];
+
+        for (const parentSelector of interactiveParents) {
+            const parentElement = e.target.closest(parentSelector);
+            if (parentElement) {
+                // Special handling for dropdowns - only allow one open
+                if (parentSelector === '.dropdown' && parentElement.classList.contains('active')) {
+                     // If it's already active and we clicked inside, it's fine
+                } else if (parentSelector === '.dropdown') {
+                    // If we clicked a new dropdown toggle, this will be handled by its own listener
+                } else {
+                    // For other popups or if a non-active dropdown toggle was clicked
+                }
+                clickedInsideInteractiveElement = true;
+                break; 
+            }
+        }
+        
+        // Close all popups if click is outside any interactive element
+        // Individual toggles handle their own opening/closing logic with stopPropagation
+        if (!clickedInsideInteractiveElement) {
+            closeAllPopups();
+            document.querySelectorAll('.dropdown.active').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+
+</script>
+</body>
+</html>

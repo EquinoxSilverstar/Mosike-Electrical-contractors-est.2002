@@ -1373,3 +1373,123 @@ section {
   display: block;
 }
 
+
+.footer {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer .links {
+  margin-bottom: 20px;
+}
+
+.footer .links a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.footer .links a:hover {
+  color: #000000;
+  font-size: 18px;
+  margin-right: 20px;
+  text-decoration: none;
+  border-radius: 15%;
+}
+
+.center {
+  margin: 0 auto;
+  max-width: 600px; /* set the maximum width to 600px */
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1em;
+  transition: color 0.3s ease;
+  border: 2px solid #ffd700;
+}
+
+.member {
+  /* Default (desktop) styling */
+  justify-content: center;
+  align-items: center;
+  max-width: 300px;
+  margin: 20px auto;
+  text-align: center;
+  font-size: 1em;
+  transition: color 0.3s ease;
+  border: 2px solid #ffd700;
+}
+
+.member img:hover {
+ transition: 10s;
+   transform: scale(1.1rem);
+    transition: all 0.5s ease-in-out;
+    
+}
+
+/* Mobile styling */
+@media screen and (max-width: 768px) {
+  .member {
+    /* Override flex properties for mobile if needed */
+    flex-direction: column;
+    margin: 20px auto;
+    /* Other properties remain the same */
+  }
+}
+
+.team-members {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.title h1, h2 {
+  font-size: 22px;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.member2 {
+  /* Default (desktop) styling */
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin: 10px auto;
+  text-align: center;
+  font-size: 1em;
+  transition: color 0.3s ease;
+  border: 2px solid #ffd700;
+}
+
+
+
+/* Add to your style.css */
+.service-card, .btn, .social-links a, .dropdown-content a {
+    transition: all 0.3s ease-in-out;
+}
+
+.hover-underline {
+    position: relative;
+}
+
+.hover-underline::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #ff6b6b;
+    transition: width 0.3s ease;
+}
+
+.hover-underline:hover::after {
+    width: 100%;
+}
